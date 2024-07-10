@@ -80,7 +80,7 @@ public class TileManager {
 			
 			tile[3] = new Tile();
 			tile[3].img=(ImageIO.read(new File("res\\tiles\\water.png")));
-			
+			tile[3].col =true;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
