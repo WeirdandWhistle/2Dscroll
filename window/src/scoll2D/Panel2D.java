@@ -14,6 +14,7 @@ import javax.swing.Timer;
 
 import entity.CollisionChecker;
 import entity.Player;
+import object.SuperObject;
 import player.Platformer;
 import player.TopDown2D;
 import tile.TileManager;
@@ -32,6 +33,14 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 	public final double jumpPower = 100;
 	public final double gravity = 4.5;
 	
+	public long starttime= 0;
+	public long endtime = 0;
+	public long deltatime=0;
+	public int t = 0;
+	public int atime = 0;
+	public int ats;
+	public int rt = 0;;
+	
 	public boolean platformer = false;
 	public boolean sprint =false;
 	public boolean d = false;
@@ -42,12 +51,13 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 	
 	Timer gameClock;
 	public final int gameTicks = 60;
-	Dimension window = new Dimension(width,height);
+	public Dimension window = new Dimension(width,height);
 	public TileManager tileM = new TileManager(this);
-	Platformer pf = new Platformer(this);
-	TopDown2D td2d = new TopDown2D();
+	public Platformer pf = new Platformer(this);
+	public TopDown2D td2d = new TopDown2D();
 	public Player player = new Player(this);
 	public CollisionChecker cc = new CollisionChecker(this);
+	public SuperObject obj[] = new SuperObject[10];
 	
 	
 		public Panel2D(){
@@ -82,8 +92,19 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 			if(!platformer) {
 				td2d.TopDownRender();
 			}
-			
-		
+			if(t==0) {
+			starttime = System.currentTimeMillis();			
+			}
+			t++;
+			if(t==gameTicks) {
+				endtime = System.currentTimeMillis();
+				t=0;
+				ats++;
+				deltatime = endtime - starttime;
+				rt += deltatime;
+				atime = rt/ats;
+				System.out.println(atime);
+			}
 //		
 	}
 
