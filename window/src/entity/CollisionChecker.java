@@ -35,19 +35,55 @@ public class CollisionChecker {
 			else entity.collision = false;
 			break;
 		case "left": entityLeftCol = (entityLeftWorldX - entity.speed) / p.tileSize;
-		num1 = p.tileM.tileNum[entityLeftCol][entityTopRow];
-		num2 = p.tileM.tileNum[entityLeftCol][entityBottomRow];
-		if(p.tileM.tile[num1].col == true || p.tileM.tile[num2].col == true) entity.collision = true;
-		else entity.collision = false;
+			num1 = p.tileM.tileNum[entityLeftCol][entityTopRow];
+			num2 = p.tileM.tileNum[entityLeftCol][entityBottomRow];
+			if(p.tileM.tile[num1].col == true || p.tileM.tile[num2].col == true) entity.collision = true;
+			else entity.collision = false;
 
-		break;
+			break;
 		case "right": entityRightCol = (entityRightWorldX + entity.speed) / p.tileSize;
-		num1 = p.tileM.tileNum[entityRightCol][entityTopRow];
-		num2 = p.tileM.tileNum[entityRightCol][entityBottomRow];
-		if(p.tileM.tile[num1].col == true || p.tileM.tile[num2].col == true) entity.collision = true;
-		else entity.collision = false;
+			num1 = p.tileM.tileNum[entityRightCol][entityTopRow];
+			num2 = p.tileM.tileNum[entityRightCol][entityBottomRow];
+			if(p.tileM.tile[num1].col == true || p.tileM.tile[num2].col == true) entity.collision = true;
+			else entity.collision = false;
+			break;
+		case "ul": entityTopRow = (entityTopWorldY - entity.speed) / p.tileSize;
+		entityBottomRow = (entityBottomWorldY + entity.speed) / p.tileSize;
+		entityLeftCol = (entityLeftWorldX - entity.speed) / p.tileSize;
+		entityRightCol = (entityRightWorldX + entity.speed) / p.tileSize;
+			num1 = p.tileM.tileNum[entityLeftCol][entityTopRow];
+			num2 = p.tileM.tileNum[entityLeftCol][entityTopRow];
+			if(p.tileM.tile[num1].col == true || p.tileM.tile[num2].col == true) entity.collision = true;
+			else entity.collision = false;
 
-		break;
+			break;
+		case "ur": entityTopRow = (entityTopWorldY - entity.speed) / p.tileSize;
+		entityBottomRow = (entityBottomWorldY + entity.speed) / p.tileSize;
+		entityLeftCol = (entityLeftWorldX - entity.speed) / p.tileSize;
+		entityRightCol = (entityRightWorldX + entity.speed) / p.tileSize;
+			num1 = p.tileM.tileNum[entityRightCol][entityTopRow];
+			num2 = p.tileM.tileNum[entityRightCol][entityTopRow];
+			if(p.tileM.tile[num1].col == true || p.tileM.tile[num2].col == true) entity.collision = true;
+			else entity.collision = false;
+			break;
+		case "dl": entityTopRow = (entityTopWorldY - entity.speed) / p.tileSize;
+		entityBottomRow = (entityBottomWorldY + entity.speed) / p.tileSize;
+		entityLeftCol = (entityLeftWorldX - entity.speed) / p.tileSize;
+		entityRightCol = (entityRightWorldX + entity.speed) / p.tileSize;
+			num1 = p.tileM.tileNum[entityLeftCol][entityBottomRow];
+			num2 = p.tileM.tileNum[entityLeftCol][entityBottomRow];
+			if(p.tileM.tile[num1].col == true || p.tileM.tile[num2].col == true) entity.collision = true;
+			else entity.collision = false;
+			break;
+		case "dr": entityTopRow = (entityTopWorldY - entity.speed) / p.tileSize;
+		entityBottomRow = (entityBottomWorldY + entity.speed) / p.tileSize;
+		entityLeftCol = (entityLeftWorldX - entity.speed) / p.tileSize;
+		entityRightCol = (entityRightWorldX + entity.speed) / p.tileSize;
+			num1 = p.tileM.tileNum[entityRightCol][entityBottomRow];
+			num2 = p.tileM.tileNum[entityRightCol][entityBottomRow];
+			if(p.tileM.tile[num1].col == true || p.tileM.tile[num2].col == true) entity.collision = true;
+			else entity.collision = false;
+			break;
 			
 			
 		}

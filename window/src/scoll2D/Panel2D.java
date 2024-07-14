@@ -32,6 +32,7 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 	public final int worldWidth = maxWorldCol * tileSize;
 	public final double jumpPower = 100;
 	public final double gravity = 4.5;
+	public final double norm = 0.707;
 	
 	public long starttime= 0;
 	public long endtime = 0;

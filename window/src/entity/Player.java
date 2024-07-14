@@ -18,6 +18,9 @@ public class Player extends Entity {
 		screenY = p.height/2 -(p.tileSize/2);
 		setDefVals();
 	}
+	public double norm(double speed) {
+		return speed * p.norm;
+	}
 	public void setDefVals() {
 		worldX = 9 * p.tileSize;
 		worldY = 9 * p.tileSize;
@@ -39,6 +42,13 @@ public class Player extends Entity {
 			
 			if(p.d)dir = "right";
 			
+			if(p.w && p.d)dir ="ur";
+			
+			if(p.w && p.a)dir = "ul";
+			
+			if(p.s && p.d)dir = "dr";
+			
+			if(p.s && p.a)dir = "dl";
 			p.cc.check(this);
 			if(collision == false && dir !=null) {
 				switch(dir) {
@@ -46,6 +56,10 @@ public class Player extends Entity {
 				case "down":  worldY += speed; break;
 				case "left": worldX -= speed; break;
 				case "right": worldX += speed; break;
+				case "ul": worldX -= norm(speed); worldY -= norm(speed); break;
+				case "ur": worldX += norm(speed); worldY -= norm(speed); break;
+				case "dl": worldX -= norm(speed); worldY += norm(speed); break;
+				case "dr": worldX += norm(speed); worldY += norm(speed); break;
 				default: break;
 				}
 				dir=null;
