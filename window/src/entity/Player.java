@@ -40,7 +40,6 @@ public class Player extends Entity {
 			if(p.d)dir = "right";
 			
 			p.cc.check(this);
-			System.out.println(collision);
 			if(collision == false && dir !=null) {
 				switch(dir) {
 				case "up": worldY -= speed; break;
