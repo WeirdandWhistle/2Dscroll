@@ -11,4 +11,5 @@ public class Entity {
 	public BufferedImage sprite2D;
 	public boolean collision;
 	public Rectangle solidHitbox;
+	public int x,y;
 }

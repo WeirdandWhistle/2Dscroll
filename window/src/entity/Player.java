@@ -22,8 +22,8 @@ public class Player extends Entity {
 		return speed * p.norm;
 	}
 	public void setDefVals() {
-		worldX = 9 * p.tileSize;
-		worldY = 9 * p.tileSize;
+		x = 9 * p.tileSize;
+		y = 9 * p.tileSize;
 		speed = 4;
 		solidHitbox = new Rectangle();
 		solidHitbox.x = 8 * p.scale;
@@ -33,6 +33,8 @@ public class Player extends Entity {
 		}
 	public void update(Graphics2D g2d) {
 		if(!p.platformer) {
+			
+			speed = 4;
 			
 			if(p.w)dir = "up";
 			
@@ -52,18 +54,20 @@ public class Player extends Entity {
 			p.cc.check(this);
 			if(collision == false && dir !=null) {
 				switch(dir) {
-				case "up": worldY -= speed; break;
-				case "down":  worldY += speed; break;
-				case "left": worldX -= speed; break;
-				case "right": worldX += speed; break;
-				case "ul": worldX -= norm(speed); worldY -= norm(speed); break;
-				case "ur": worldX += norm(speed); worldY -= norm(speed); break;
-				case "dl": worldX -= norm(speed); worldY += norm(speed); break;
-				case "dr": worldX += norm(speed); worldY += norm(speed); break;
+				case "up": y -= speed; break;
+				case "down":  y += speed; break;
+				case "left": x -= speed; break;
+				case "right": x += speed; break;
+				case "ul": x -= norm(speed); y -= norm(speed); break;
+				case "ur": x += norm(speed); y -= norm(speed); break;
+				case "dl": x -= norm(speed); y += norm(speed); break;
+				case "dr": x += norm(speed); y += norm(speed); break;
 				default: break;
 				}
 				dir=null;
 			}
+			worldX = (int) x;
+			worldY = (int) y;
 			g2d.setColor(Color.CYAN);
 			g2d.fillRect(screenX,screenY,p.tileSize,p.tileSize);
 			g2d.setColor(Color.red);
