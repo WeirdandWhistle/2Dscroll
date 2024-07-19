@@ -59,12 +59,14 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 	public Player player = new Player(this);
 	public CollisionChecker cc = new CollisionChecker(this);
 	public SuperObject obj[] = new SuperObject[10];
+	public Initialize intit = new Initialize(this);
 	
 	
 		public Panel2D(){
 		this.setPreferredSize(window);
 		this.requestFocusInWindow();
 		this.addKeyListener(this);
+		intit.intit();
 			
 		gameClock = new Timer(gameTicks/1000,this); 
 		gameClock.start();
@@ -78,7 +80,15 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 		g2d.fillRect(0, 0,width,height);
 		
 		
+		//WORLD TILES
 		tileM.draw(g2d);
+		
+		// OBJECTS
+		for(int i = 0; i<= (obj.length - 1); i++) {
+			if(obj[i] != null) {
+				obj[i].draw(g2d,this);
+			}
+		}
 		
 		player.update(g2d);
 		
