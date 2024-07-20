@@ -1,5 +1,7 @@
 package entity;
 
+import java.awt.Rectangle;
+
 import scoll2D.Panel2D;
 
 public class CollisionChecker {
@@ -86,8 +88,105 @@ public class CollisionChecker {
 			break;
 			
 			
+			}
 		}
+	}
+	public int OBJCheck(Entity entity, boolean player) {
 		
+		int index = 999;
+		
+		for(int i = 0; i < p.obj.length;i++) {
+			
+			if(p.obj[i] != null) {
+				
+				Rectangle e = new Rectangle(entity.solidHitbox.x + entity.worldX, entity.solidHitbox.y + entity.worldY, entity.solidHitbox.width,entity.solidHitbox.height);
+				
+				
+				Rectangle OBJ = new Rectangle(p.obj[i].solidArea);
+				
+				OBJ.x += p.obj[i].WX;
+				OBJ.y += p.obj[i].WY;
+					
+				if(entity.dir != null) {
+				switch(entity.dir) {
+				case "up": e.y -= entity.speed;
+					if(e.intersects(OBJ)) {
+						if(p.obj[i].collision) {
+							entity.collision = true;
+						}
+						if(player) {
+							index = i;
+						}
+					}
+					break;
+				case "down": e.y += entity.speed;
+				if(e.intersects(OBJ)) {
+					if(p.obj[i].collision) {
+						entity.collision = true;
+					}
+					if(player) {
+						index = i;
+					}				}
+					break;
+				case "left": e.x -= entity.speed;
+				if(e.intersects(OBJ)) {
+					if(p.obj[i].collision) {
+						entity.collision = true;
+					}
+					if(player) {
+						index = i;
+					}				}
+					break;
+				case "right": e.x += entity.speed;
+				if(e.intersects(OBJ)) {
+					if(p.obj[i].collision) {
+						entity.collision = true;
+					}
+					if(player) {
+						index = i;
+					}				}
+					break;
+				case "ur":e.x += entity.speed; e.y -= entity.speed;
+				if(e.intersects(OBJ)) {
+					if(p.obj[i].collision) {
+						entity.collision = true;
+					}
+					if(player) {
+						index = i;
+					}				}
+					break;
+				case "ul":e.x -= entity.speed; e.y -= entity.speed;
+				if(e.intersects(OBJ)) {
+					if(p.obj[i].collision) {
+						entity.collision = true;
+					}
+					if(player) {
+						index = i;
+					}				}
+					break;
+				case "dr":e.x += entity.speed;e.y += entity.speed;
+				if(e.intersects(OBJ)) {
+					if(p.obj[i].collision) {
+						entity.collision = true;
+					}
+					if(player) {
+						index = i;
+					}				}
+					break;
+				case "dl":e.x -= entity.speed;e.y += entity.speed;
+				if(e.intersects(OBJ)) {
+					if(p.obj[i].collision) {
+						entity.collision = true;
+					}
+					if(player) {
+						index = i;
+					}				}
+					break;
+				
+				}
+			}
+			}
 		}
+		return index;
 	}
 }

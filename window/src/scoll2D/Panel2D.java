@@ -59,7 +59,7 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 	public Player player = new Player(this);
 	public CollisionChecker cc = new CollisionChecker(this);
 	public SuperObject obj[] = new SuperObject[10];
-	public Initialize intit = new Initialize(this);
+	public Initializer intit = new Initializer(this);
 	
 	
 		public Panel2D(){

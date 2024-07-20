@@ -12,10 +12,12 @@ public class Player extends Entity {
 	
 	public int screenX;
 	public int screenY;
+	public boolean follow;
 	public Player(Panel2D p) {
 		this.p = p;
 		screenX = p.width/2 -(p.tileSize/2);
 		screenY = p.height/2 -(p.tileSize/2);
+		follow = true;
 		setDefVals();
 	}
 	public double norm(double speed) {
@@ -52,22 +54,29 @@ public class Player extends Entity {
 			
 			if(p.s && p.a)dir = "dl";
 			p.cc.check(this);
+			p.cc.OBJCheck(this,true);
 			if(collision == false && dir !=null) {
 				switch(dir) {
-				case "up": y -= speed; break;
-				case "down":  y += speed; break;
-				case "left": x -= speed; break;
-				case "right": x += speed; break;
-				case "ul": x -= norm(speed); y -= norm(speed); break;
-				case "ur": x += norm(speed); y -= norm(speed); break;
-				case "dl": x -= norm(speed); y += norm(speed); break;
-				case "dr": x += norm(speed); y += norm(speed); break;
+				case "up": worldY -= speed; break;
+				case "down":  worldY += speed; break;
+				case "left": worldX -= speed; break;
+				case "right": worldX += speed; break;
+				case "ul": worldX -= norm(speed); worldY -= norm(speed); break;
+				case "ur": worldX += norm(speed); worldY -= norm(speed); break;
+				case "dl": worldX -= norm(speed); worldY += norm(speed); break;
+				case "dr": worldX += norm(speed); worldY += norm(speed); break;
 				default: break;
 				}
 				dir=null;
 			}
-			worldX = (int) x;
-			worldY = (int) y;
+			if(follow) {
+			x = worldX;
+			y = worldY;
+			}
+			
+			if(!follow) {
+				
+			}
 			g2d.setColor(Color.CYAN);
 			g2d.fillRect(screenX,screenY,p.tileSize,p.tileSize);
 			g2d.setColor(Color.red);
