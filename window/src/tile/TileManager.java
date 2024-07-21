@@ -91,26 +91,55 @@ public class TileManager {
 			int worldCol = 0;
 			int worldRow = 0;
 			
-			while(worldCol < p.maxWorldCol && worldRow < p.maxWorldRow) {
-		
-				int num = tileNum[worldCol][worldRow];
+			int sx = 0;
+			int sy = 0;
+			
+			
+				if(!p.player.follow) {
+					
+					while(worldCol < p.maxWorldCol && worldRow < p.maxWorldRow) {
+						int num = tileNum[worldCol][worldRow];
+					
+					
+					g2d.drawImage(tile[num].img, sx, sy, p.tileSize, p.tileSize,null);
+					
+					worldCol++;
+					sx += p.tileSize;
+					
+			
+					if(worldCol == p.maxWorldCol) {
+						worldCol = 0;
+						sx = 0;
+						worldRow++;
+						sy += p.tileSize;
+					}
+					}
+					
+				}
+				if(p.player.follow) {
+					worldCol =0;
+					worldRow = 0;
+				while(worldCol < p.maxWorldCol && worldRow < p.maxWorldRow) {
+					
 				
+				int num = tileNum[worldCol][worldRow];
 				int worldX = worldCol * p.tileSize;
 				int worldY = worldRow * p.tileSize;
-				int screenX = worldX - p.player.worldX + p.player.screenX;
-				int screenY = worldY - p.player.worldY + p.player.screenY;
-				if(worldX + p.tileSize > p.player.worldX - p.player.screenX &&
-				   worldX - p.tileSize < p.player.worldX + p.player.screenX &&
-				   worldY + p.tileSize > p.player.worldY - p.player.screenY &&
-				   worldY - p.tileSize < p.player.worldY + p.player.screenY) {
+				int screenX = worldX - p.player.x + p.player.screenX;
+				int screenY = worldY - p.player.y + p.player.screenY;
+//				if(worldX + p.tileSize > p.player.x - p.player.screenX &&
+//				   worldX - p.tileSize < p.player.x + p.player.screenX &&
+//				   worldY + p.tileSize > p.player.y - p.player.screenY &&
+//				   worldY - p.tileSize < p.player.y + p.player.screenY) {
 				g2d.drawImage(tile[num].img, screenX, screenY, p.tileSize, p.tileSize,null);
-				}
+//				}
 				worldCol++;
 				
 		
 				if(worldCol == p.maxWorldCol) {
 					worldCol = 0;
 					worldRow++;
+				}
 				}
 			}
 		}

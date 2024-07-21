@@ -53,6 +53,8 @@ public class Player extends Entity {
 			if(p.s && p.d)dir = "dr";
 			
 			if(p.s && p.a)dir = "dl";
+			
+			
 			p.cc.check(this);
 			p.cc.OBJCheck(this,true);
 			if(collision == false && dir !=null) {
@@ -75,7 +77,8 @@ public class Player extends Entity {
 			}
 			
 			if(!follow) {
-				
+				screenX = worldX;
+				screenY = worldY;
 			}
 			g2d.setColor(Color.CYAN);
 			g2d.fillRect(screenX,screenY,p.tileSize,p.tileSize);

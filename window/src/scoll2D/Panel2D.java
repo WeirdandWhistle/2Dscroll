@@ -49,6 +49,7 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 	public boolean space = false;
 	public boolean w = false;
 	public boolean s = false;
+	public boolean f = false;
 	
 	Timer gameClock;
 	public final int gameTicks = 60;
@@ -121,6 +122,13 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+		System.out.println(e.getKeyCode());
+
+//		if()e.getKeyChar()).equals(f)) {
+//			boolean used = false; 
+//			if(player.follow==true && !used) player.follow = false; used = true;
+//			if(player.follow==false && !used)player.follow=true;  used = true;
+//		}
 		
 	}
 
@@ -141,10 +149,12 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 		}
 		if(e.getKeyCode()==87) {
 			w=true;
+			System.out.println("good");
 		}
 		if(e.getKeyCode()==83) {
 			s=true;
 		}
+		
 		
 	}
 
@@ -168,6 +178,7 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 		if(e.getKeyCode()==83) {
 			s=false;
 		}
+		
 		
 	}
 
