@@ -96,7 +96,6 @@ public class TileManager {
 			
 			
 				if(!p.player.follow) {
-					
 					while(worldCol < p.maxWorldCol && worldRow < p.maxWorldRow) {
 						int num = tileNum[worldCol][worldRow];
 					

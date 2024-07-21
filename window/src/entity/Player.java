@@ -17,7 +17,7 @@ public class Player extends Entity {
 		this.p = p;
 		screenX = p.width/2 -(p.tileSize/2);
 		screenY = p.height/2 -(p.tileSize/2);
-		follow = true;
+		follow = false;
 		setDefVals();
 	}
 	public double norm(double speed) {
