@@ -33,6 +33,8 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 	public final double jumpPower = 100;
 	public final double gravity = 4.5;
 	public final double norm = 0.707;
+	public final int centerScreenX = width/2 - (tileSize/2);
+	public final int centerScreenY = height/2 - (tileSize/2);
 	
 	public long starttime= 0;
 	public long endtime = 0;
@@ -40,7 +42,11 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 	public int t = 0;
 	public int atime = 0;
 	public int ats;
-	public int rt = 0;;
+	public int rt = 0;
+	
+	public int cameraX = 1 * tileSize;
+	public int cameraY = 5 * tileSize;
+	public boolean XF = false;
 	
 	public boolean platformer = false;
 	public boolean sprint =false;
@@ -122,19 +128,19 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		System.out.println(e.getKeyChar());
+		
 		char f = 'f';
 
 		if(e.getKeyChar() == f) {
 			
 			boolean used = false; 
-			System.out.println("used 1 :" +used);
-			if(player.follow && !used) { player.follow = false; used = true;System.out.println("did a thing");}
-			System.out.println("used 2 :" +used);
-			if(!player.follow && !used) {player.follow=true;  used = true;System.out.println("did another thing");}
-			System.out.println("used 3 :" +used);
+			
+			if(player.follow && !used) { player.follow = false; used = true;}
+			
+			if(!player.follow && !used) {player.follow=true;  used = true;}
+			
 			used = false;
-			System.out.println("used 4 :" +used);
+			
 		}
 		
 	}
@@ -156,7 +162,6 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 		}
 		if(e.getKeyCode()==87) {
 			w=true;
-			System.out.println("good");
 		}
 		if(e.getKeyCode()==83) {
 			s=true;

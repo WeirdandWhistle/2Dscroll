@@ -17,7 +17,7 @@ public class Player extends Entity {
 		this.p = p;
 		screenX = p.width/2 -(p.tileSize/2);
 		screenY = p.height/2 -(p.tileSize/2);
-		follow = false;
+		follow = true;
 		setDefVals();
 	}
 	public double norm(double speed) {
@@ -59,10 +59,10 @@ public class Player extends Entity {
 			p.cc.OBJCheck(this,true);
 			if(collision == false && dir !=null) {
 				switch(dir) {
-				case "up": worldY -= speed; break;
+				case "up": worldY -= speed;  break;
 				case "down":  worldY += speed; break;
-				case "left": worldX -= speed; break;
-				case "right": worldX += speed; break;
+				case "left": worldX -= speed;if(p.XF) p.cameraX -= speed; break;
+				case "right": worldX += speed;if(p.XF) p.cameraX += speed; break;
 				case "ul": worldX -= norm(speed); worldY -= norm(speed); break;
 				case "ur": worldX += norm(speed); worldY -= norm(speed); break;
 				case "dl": worldX -= norm(speed); worldY += norm(speed); break;
@@ -74,11 +74,19 @@ public class Player extends Entity {
 			if(follow) {
 			x = worldX;
 			y = worldY;
+			
+			screenX = worldX - p.cameraX;
+			screenY = worldY - p.cameraY;
+			
+				if(screenX >= p.centerScreenX - speed && screenX <= p.centerScreenX + speed) {
+					p.XF = true;
+					System.out.println("in");
+				}
+				else {p.XF =false;}
 			}
 			
 			if(!follow) {
-				screenX = worldX;
-				screenY = worldY;
+				
 			}
 			g2d.setColor(Color.CYAN);
 			g2d.fillRect(screenX,screenY,p.tileSize,p.tileSize);

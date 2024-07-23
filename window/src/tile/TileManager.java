@@ -124,8 +124,8 @@ public class TileManager {
 				int num = tileNum[worldCol][worldRow];
 				int worldX = worldCol * p.tileSize;
 				int worldY = worldRow * p.tileSize;
-				int screenX = worldX - p.player.x + p.player.screenX;
-				int screenY = worldY - p.player.y + p.player.screenY;
+				int screenX = worldX - p.cameraX;
+				int screenY = worldY - p.cameraY;
 //				if(worldX + p.tileSize > p.player.x - p.player.screenX &&
 //				   worldX - p.tileSize < p.player.x + p.player.screenX &&
 //				   worldY + p.tileSize > p.player.y - p.player.screenY &&
