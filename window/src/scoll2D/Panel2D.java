@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -47,6 +48,7 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 	public int cameraX = 1 * tileSize;
 	public int cameraY = 5 * tileSize;
 	public boolean XF = false;
+	public boolean YF = true;
 	
 	public boolean platformer = false;
 	public boolean sprint =false;
@@ -59,6 +61,7 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 	
 	Timer gameClock;
 	public final int gameTicks = 60;
+//	public Rectangle cameraF = new Rectangle(centerScreenX - (tileSize/2),centerScreenY - (tileSize/2),tileSize,tileSize);
 	public Dimension window = new Dimension(width,height);
 	public TileManager tileM = new TileManager(this);
 	public Platformer pf = new Platformer(this);

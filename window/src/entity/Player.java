@@ -57,16 +57,38 @@ public class Player extends Entity {
 			
 			p.cc.check(this);
 			p.cc.OBJCheck(this,true);
+			
 			if(collision == false && dir !=null) {
+				
 				switch(dir) {
-				case "up": worldY -= speed;  break;
-				case "down":  worldY += speed; break;
-				case "left": worldX -= speed;if(p.XF) p.cameraX -= speed; break;
-				case "right": worldX += speed;if(p.XF) p.cameraX += speed; break;
-				case "ul": worldX -= norm(speed); worldY -= norm(speed); break;
-				case "ur": worldX += norm(speed); worldY -= norm(speed); break;
-				case "dl": worldX -= norm(speed); worldY += norm(speed); break;
-				case "dr": worldX += norm(speed); worldY += norm(speed); break;
+				case "up": worldY -= speed;if(p.YF) {p.cameraY -= speed;} break;
+				case "down":  worldY += speed; if(p.YF) {p.cameraY += speed;} break;
+				case "left": worldX -= speed;if(p.XF) {p.cameraX -= speed;} break;
+				case "right": worldX += speed;if(p.XF) {p.cameraX += speed;} break;
+				case "ul":
+					worldX -= norm(speed);
+					worldY -= norm(speed);
+					if(p.XF) {p.cameraX -= norm(speed);}
+					if(p.YF) {p.cameraY -= norm(speed);} 
+					break;
+				case "ur":
+					worldX += norm(speed);
+					worldY -= norm(speed);
+					if(p.XF) {p.cameraX += norm(speed);}
+					if(p.YF) {p.cameraY -= norm(speed);}
+					break;
+				case "dl":
+					worldX -= norm(speed);
+					worldY += norm(speed);
+					if(p.XF) {p.cameraX -= norm(speed);}
+					if(p.YF) {p.cameraY += norm(speed);}
+					break;
+				case "dr":
+					worldX += norm(speed); 
+					worldY += norm(speed);
+					if(p.XF) {p.cameraX += norm(speed);}
+					if(p.YF) {p.cameraY += norm(speed);}
+					break;
 				default: break;
 				}
 				dir=null;
@@ -78,20 +100,25 @@ public class Player extends Entity {
 			screenX = worldX - p.cameraX;
 			screenY = worldY - p.cameraY;
 			
-				if(screenX >= p.centerScreenX - speed && screenX <= p.centerScreenX + speed) {
+				if(screenX >= p.centerScreenX - (p.tileSize/2) && screenX <= p.centerScreenX + (p.tileSize/2)) {
 					p.XF = true;
-					System.out.println("in");
 				}
 				else {p.XF =false;}
+				if(screenY >= p.centerScreenY - (p.tileSize/2) && screenY <= p.centerScreenY + (p.tileSize/2)) {
+					p.YF = true;
+					System.out.println("in");
+				}
+				else {p.YF = false;}
 			}
 			
-			if(!follow) {
-				
-			}
+			
 			g2d.setColor(Color.CYAN);
 			g2d.fillRect(screenX,screenY,p.tileSize,p.tileSize);
+			g2d.setColor(Color.green);
+			g2d.fillRect(p.centerScreenX -(p.tileSize/2), p.centerScreenY-(p.tileSize/2), p.tileSize, p.tileSize);
 			g2d.setColor(Color.red);
 			g2d.fillRect(screenX+solidHitbox.x, screenY+solidHitbox.y, solidHitbox.width, solidHitbox.height);
+			
 		}
 	}
 }
