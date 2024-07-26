@@ -24,8 +24,8 @@ public class Player extends Entity {
 		return speed * p.norm;
 	}
 	public void setDefVals() {
-		x = 9 * p.tileSize;
-		y = 9 * p.tileSize;
+		worldX = 2 * p.tileSize;
+		worldY = 2 * p.tileSize;
 		speed = 4;
 		solidHitbox = new Rectangle();
 		solidHitbox.x = 8 * p.scale;
@@ -33,7 +33,7 @@ public class Player extends Entity {
 		solidHitbox.height = 32 * p.scale;
 		solidHitbox.width = 32 * p.scale;
 		}
-	public void update(Graphics2D g2d) {
+	public void update() {
 		if(!p.platformer) {
 			
 			speed = 4;
@@ -100,25 +100,14 @@ public class Player extends Entity {
 			screenX = worldX - p.cameraX;
 			screenY = worldY - p.cameraY;
 			
-				if(screenX >= p.centerScreenX - (p.tileSize/2) && screenX <= p.centerScreenX + (p.tileSize/2)) {
-					p.XF = true;
-				}
-				else {p.XF =false;}
-				if(screenY >= p.centerScreenY - (p.tileSize/2) && screenY <= p.centerScreenY + (p.tileSize/2)) {
-					p.YF = true;
-					System.out.println("in");
-				}
-				else {p.YF = false;}
+				p.camL.worldLimit();
 			}
-			
-			
-			g2d.setColor(Color.CYAN);
-			g2d.fillRect(screenX,screenY,p.tileSize,p.tileSize);
-			g2d.setColor(Color.green);
-			g2d.fillRect(p.centerScreenX -(p.tileSize/2), p.centerScreenY-(p.tileSize/2), p.tileSize, p.tileSize);
-			g2d.setColor(Color.red);
-			g2d.fillRect(screenX+solidHitbox.x, screenY+solidHitbox.y, solidHitbox.width, solidHitbox.height);
-			
 		}
+	}
+	public void draw(Graphics2D g2d) {
+		g2d.setColor(Color.CYAN);
+		g2d.fillRect(screenX,screenY,p.tileSize,p.tileSize);
+		g2d.setColor(Color.red);
+		g2d.fillRect(screenX+solidHitbox.x, screenY+solidHitbox.y, solidHitbox.width, solidHitbox.height);
 	}
 }

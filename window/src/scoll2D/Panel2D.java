@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -15,9 +14,9 @@ import javax.swing.Timer;
 
 import entity.CollisionChecker;
 import entity.Player;
+import extra.CamLimit;
+import extra.RoomHandeler;
 import object.SuperObject;
-import player.Platformer;
-import player.TopDown2D;
 import tile.TileManager;
 public class Panel2D extends JPanel implements ActionListener,KeyListener{
 	public final int scale = 1;
@@ -45,8 +44,8 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 	public int ats;
 	public int rt = 0;
 	
-	public int cameraX = 1 * tileSize;
-	public int cameraY = 5 * tileSize;
+	public int cameraX = 0 * tileSize;
+	public int cameraY = 0 * tileSize;
 	public boolean XF = false;
 	public boolean YF = true;
 	
@@ -64,12 +63,12 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 //	public Rectangle cameraF = new Rectangle(centerScreenX - (tileSize/2),centerScreenY - (tileSize/2),tileSize,tileSize);
 	public Dimension window = new Dimension(width,height);
 	public TileManager tileM = new TileManager(this);
-	public Platformer pf = new Platformer(this);
-	public TopDown2D td2d = new TopDown2D();
 	public Player player = new Player(this);
 	public CollisionChecker cc = new CollisionChecker(this);
 	public SuperObject obj[] = new SuperObject[10];
+	public RoomHandeler roomH = new RoomHandeler(this);
 	public Initializer intit = new Initializer(this);
+	public CamLimit camL = new CamLimit(this);
 	
 	
 		public Panel2D(){
@@ -82,6 +81,8 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 		gameClock.start();
 	}
 	public void paint(Graphics g) {
+		
+		
 		
 		super.paint(g);
 		
@@ -99,33 +100,39 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 				obj[i].draw(g2d,this);
 			}
 		}
+		//PLAYER
+		player.draw(g2d);
 		
-		player.update(g2d);
+		//ROOMS
+		roomH.cover(g2d);
 		
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+			player.update();
 			this.repaint();
-			if(platformer) {
-				pf.platformRender();
-			}
-			if(!platformer) {
-				td2d.TopDownRender();
-			}
-			if(t==0) {
-			starttime = System.currentTimeMillis();			
-			}
-			t++;
-			if(t==gameTicks) {
-				endtime = System.currentTimeMillis();
-				t=0;
-				ats++;
-				deltatime = endtime - starttime;
-				rt += deltatime;
-				atime = rt/ats;
-				System.out.println(atime);
-			}
+			
+//			if(platformer) {
+//				pf.platformRender();
+//			}
+//			if(!platformer) {
+//				td2d.TopDownRender();
+//			}
+//			if(t==0) {
+//			starttime = System.currentTimeMillis();			
+//			}
+//			t++;
+//			if(t==gameTicks) {
+//				endtime = System.currentTimeMillis();
+//				t=0;
+//				ats++;
+//				deltatime = endtime - starttime;
+//				rt += deltatime;
+//				atime = rt/ats;
+//				System.out.println(atime);
+//			}
+			
 //		
 	}
 
