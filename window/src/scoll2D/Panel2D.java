@@ -71,6 +71,7 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 	public CamLimit camL = new CamLimit(this);
 	
 	
+	
 		public Panel2D(){
 		this.setPreferredSize(window);
 		this.requestFocusInWindow();

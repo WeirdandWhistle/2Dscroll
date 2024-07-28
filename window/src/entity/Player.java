@@ -100,6 +100,8 @@ public class Player extends Entity {
 			screenX = worldX - p.cameraX;
 			screenY = worldY - p.cameraY;
 			
+				
+				p.camL.snapLimit();
 				p.camL.worldLimit();
 			}
 		}

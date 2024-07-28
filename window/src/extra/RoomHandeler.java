@@ -14,6 +14,7 @@ public class RoomHandeler {
 	Panel2D p;
 	int currentRoom = 999;
 	int index = 0;
+	int roomNum = 1;
 	
 	
 	
@@ -25,7 +26,7 @@ public class RoomHandeler {
 	public void cover(Graphics2D g2d) {
 		
 		
-		if(!p.platformer) {
+		if(!p.platformer && rooms != null) {
 			Rectangle compare = new Rectangle(p.player.worldX,p.player.worldY,p.tileSize,p.tileSize);
 			
 			for(int i = 1; i <= rooms.size(); i++) {
@@ -38,19 +39,23 @@ public class RoomHandeler {
 				else if(rooms.get(i).intersects(compare) == true) {
 					currentRoom = i;
 				}
+				else {
+					currentRoom = 999;
+				}
 			}
 			
 		}
 	}
-public void toWorld(int i) {
+	public void toWorld(int i) {
 		rooms.get(i).x *= p.tileSize;
 		rooms.get(i).y *= p.tileSize;
 		rooms.get(i).width *= p.tileSize;
 		rooms.get(i).height *= p.tileSize;
 	}
-	public void addRoom(Rectangle rect, int roomNum) {
-		rooms.put(roomNum, rect);
+	public void addRoom(Rectangle rect) {
+		rooms.put(roomNum,rect);
 		toWorld(roomNum);
+		roomNum++;
 	}
 	
 	

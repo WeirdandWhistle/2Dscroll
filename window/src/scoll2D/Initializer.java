@@ -32,13 +32,14 @@ public class Initializer {
 		objNum++;
 		
 		//ROOMS
-		p.roomH.addRoom(new Rectangle(0,0,9,9), 1);
+		p.roomH.addRoom(new Rectangle(0,0,9,9));
+//		p.camL.addLimit(new Rectangle(0,0,19,9));
 		
-		p.roomH.addRoom(new Rectangle(10,0,9,9), 2);
+		p.roomH.addRoom(new Rectangle(10,0,9,9));
 		
-		p.roomH.addRoom(new Rectangle(0,10,9,9), 3);
+		p.roomH.addRoom(new Rectangle(0,10,9,9));
 		
-		p.roomH.addRoom(new Rectangle(10,10,9,9), 4);
+		p.roomH.addRoom(new Rectangle(10,10,9,9));
 		
 		
 	}
