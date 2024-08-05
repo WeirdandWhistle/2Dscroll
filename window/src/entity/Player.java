@@ -7,14 +7,12 @@ import java.awt.Rectangle;
 import scoll2D.Panel2D;
 
 public class Player extends Entity {
-
-	Panel2D p;
 	
 	public int screenX;
 	public int screenY;
 	public boolean follow;
 	public Player(Panel2D p) {
-		this.p = p;
+		super(p);
 		screenX = p.width/2 -(p.tileSize/2);
 		screenY = p.height/2 -(p.tileSize/2);
 		follow = true;
