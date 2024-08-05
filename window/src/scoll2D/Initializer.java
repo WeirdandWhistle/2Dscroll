@@ -33,7 +33,7 @@ public class Initializer {
 		
 		//ROOMS
 		p.roomH.addRoom(new Rectangle(0,0,9,9));
-		p.camL.addLimit(new Rectangle(0,0,19,9));
+//		p.camL.addLimit(new Rectangle(0,0,19,9));
 		
 		p.roomH.addRoom(new Rectangle(10,0,9,9));
 		
