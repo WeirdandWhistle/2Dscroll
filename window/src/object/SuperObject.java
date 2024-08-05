@@ -42,9 +42,5 @@ public class SuperObject {
 
 		obj.solidArea.width = p.tileSize;
 		obj.solidArea.height = p.tileSize;
-		
-		System.out.println("test");
-
-		
 	}
 }

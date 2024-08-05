@@ -55,7 +55,6 @@ public class CamLimit {
 			for(int i = 0; i <= limits.size() - 1; i++) {
 				
 				if(limits.get(i).intersects(compare) == true ) {
-					System.out.println("here");
 					if(p.cameraX < limits.get(i).x) {
 						p.XF = false;
 						p.cameraX = limits.get(i).x;

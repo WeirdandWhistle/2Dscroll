@@ -140,20 +140,6 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 	@Override
 	public void keyTyped(KeyEvent e) {
 		
-		char f = 'f';
-
-		if(e.getKeyChar() == f) {
-			
-			boolean used = false; 
-			
-			if(player.follow && !used) { player.follow = false; used = true;}
-			
-			if(!player.follow && !used) {player.follow=true;  used = true;}
-			
-			used = false;
-			
-		}
-		
 	}
 
 	@Override
