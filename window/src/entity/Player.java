@@ -93,17 +93,16 @@ public class Player extends Entity {
 				}
 				dir=null;
 			}
-			if(follow) {
+			
 			x = worldX;
 			y = worldY;
 			
 			screenX = worldX - p.cameraX;
 			screenY = worldY - p.cameraY;
 			
-				
-				p.camL.snapLimit();
-				p.camL.worldLimit();
-			}
+			p.camL.snapLimit();
+			p.camL.worldLimit();
+			
 		}
 	}
 	public void draw(Graphics2D g2d) {
