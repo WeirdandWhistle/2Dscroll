@@ -18,9 +18,7 @@ public class Player extends Entity {
 		follow = true;
 		setDefVals();
 	}
-	public double norm(double speed) {
-		return speed * p.norm;
-	}
+	
 	public void setDefVals() {
 		worldX = 2 * p.tileSize;
 		worldY = 2 * p.tileSize;

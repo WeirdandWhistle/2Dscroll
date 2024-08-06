@@ -19,4 +19,7 @@ public class Entity {
 	public Entity(Panel2D p) {
 		this.p = p;
 	}
+	public double norm(double speed) {
+		return speed * p.norm;
+	}
 }
