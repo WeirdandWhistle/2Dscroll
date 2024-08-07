@@ -58,9 +58,14 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 	public boolean s = false;
 	public boolean f = false;
 	
-	Timer gameClock;
+	//GAMESTATE
+	public final int pausedState = 0;
+	public final int playState = 1;
+	public int gameState = playState;
+	
+	
+	private Timer gameClock;
 	public final int gameTicks = 60;
-//	public Rectangle cameraF = new Rectangle(centerScreenX - (tileSize/2),centerScreenY - (tileSize/2),tileSize,tileSize);
 	public Dimension window = new Dimension(width,height);
 	public TileManager tileM = new TileManager(this);
 	public Player player = new Player(this);
@@ -108,13 +113,22 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 		roomH.cover(g2d);
 		
 	}
+	public void run() {
+		
+		switch(gameState) {
+		case playState:
+			player.update();
+			
+			this.repaint();
+			break;
+		case pausedState:
+			break;
+		}
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-			player.update();
-			this.repaint();
-			
-//			if(platformer) {
+		run();
+//		if(platformer) {
 //				pf.platformRender();
 //			}
 //			if(!platformer) {
@@ -133,8 +147,6 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 //				atime = rt/ats;
 //				System.out.println(atime);
 //			}
-			
-//		
 	}
 
 	@Override
