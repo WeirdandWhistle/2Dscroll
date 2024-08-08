@@ -2,6 +2,7 @@ package scoll2D;
 
 import java.awt.Rectangle;
 
+import entity.NPC_boss;
 import object.OBJ_barrel;
 import object.OBJ_potato;
 
@@ -40,6 +41,9 @@ public class Initializer {
 		p.roomH.addRoom(new Rectangle(0,10,9,9));
 		
 		p.roomH.addRoom(new Rectangle(10,10,9,9));
+		
+		// NPCs
+		p.npc[0] = new NPC_boss(p);
 		
 		
 	}

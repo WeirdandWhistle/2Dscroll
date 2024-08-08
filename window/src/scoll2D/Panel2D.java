@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import entity.CollisionChecker;
+import entity.Entity;
 import entity.Player;
 import extra.CamLimit;
 import extra.RoomHandeler;
@@ -74,6 +75,7 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 	public RoomHandeler roomH = new RoomHandeler(this);
 	public Initializer intit = new Initializer(this);
 	public CamLimit camL = new CamLimit(this);
+	public Entity[] npc = new Entity[10];
 	
 	
 	
@@ -106,6 +108,12 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 				obj[i].draw(g2d,this);
 			}
 		}
+		// NPC
+		for(int i = 0; i<=(npc.length -1);i++) {
+			if(npc[i] != null) {
+				npc[i].draw(g2d);
+			}
+		}
 		//PLAYER
 		player.draw(g2d);
 		
@@ -118,6 +126,12 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 		switch(gameState) {
 		case playState:
 			player.update();
+			
+			for(int i =0;i <= npc.length-1;i++) {
+				if(npc[i] != null) {
+					npc[i].update();
+				}
+			}
 			
 			this.repaint();
 			break;

@@ -34,27 +34,27 @@ public class Player extends Entity {
 			
 			speed = 4;
 			
-			if(p.w)dir = "up";
+			if(p.w) {dir = "up"; moving =true;}
 			
-			if(p.s)dir = "down";
+			if(p.s) {dir = "down";moving =true;}
 			
-			if(p.a)dir = "left";
+			if(p.a) {dir = "left";moving =true;}
 			
-			if(p.d)dir = "right";
+			if(p.d) {dir = "right";moving =true;}
 			
-			if(p.w && p.d)dir ="ur";
+			if(p.w && p.d) {dir ="ur";moving =true;}
 			
-			if(p.w && p.a)dir = "ul";
+			if(p.w && p.a) {dir = "ul";moving =true;}
 			
-			if(p.s && p.d)dir = "dr";
+			if(p.s && p.d) {dir = "dr";moving =true;}
 			
-			if(p.s && p.a)dir = "dl";
+			if(p.s && p.a) {dir = "dl";moving =true;}
 			
 			
 			p.cc.check(this);
 			p.cc.OBJCheck(this,true);
 			
-			if(collision == false && dir !=null) {
+			if(collision == false && dir !=null && moving) {
 				
 				switch(dir) {
 				case "up": worldY -= speed;if(p.YF) {p.cameraY -= speed;} break;
@@ -87,11 +87,11 @@ public class Player extends Entity {
 					break;
 				default: break;
 				}
-				dir=null;
+				
 			}
+			moving=false;
 			
-			x = worldX;
-			y = worldY;
+			
 			
 			screenX = worldX - p.cameraX;
 			screenY = worldY - p.cameraY;
