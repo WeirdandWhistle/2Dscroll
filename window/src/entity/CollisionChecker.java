@@ -189,4 +189,165 @@ public class CollisionChecker {
 		}
 		return index;
 	}
+	public int checkEntity(Entity entity, Entity[] target) {
+int index = 999;
+		
+		for(int i = 0; i < target.length;i++) {
+			
+			if(target[i] != null) {
+				
+				Rectangle e = new Rectangle(entity.solidHitbox.x + entity.worldX, entity.solidHitbox.y + entity.worldY, entity.solidHitbox.width,entity.solidHitbox.height);
+				
+				
+				Rectangle OBJ = new Rectangle(target[i].solidHitbox);
+				
+				OBJ.x += target[i].worldX;
+				OBJ.y += target[i].worldY;
+					
+				if(entity.dir != null) {
+				switch(entity.dir) {
+				case "up": e.y -= entity.speed;
+					if(e.intersects(OBJ)) {
+						entity.collision = true;
+						
+						
+							index = i;
+						
+					}
+					break;
+				case "down": e.y += entity.speed;
+				if(e.intersects(OBJ)) {
+					
+						entity.collision = true;
+					
+					
+						index = i;
+									}
+					break;
+				case "left": e.x -= entity.speed;
+				if(e.intersects(OBJ)) {
+					
+						entity.collision = true;
+					
+					
+						index = i;
+					}
+					break;
+				case "right": e.x += entity.speed;
+				if(e.intersects(OBJ)) {
+					
+						entity.collision = true;
+					
+					index = i;
+					}				
+					break;
+				case "ur":e.x += entity.speed; e.y -= entity.speed;
+				if(e.intersects(OBJ)) {
+					
+						entity.collision = true;
+					
+					index = i;
+					}				
+					break;
+				case "ul":e.x -= entity.speed; e.y -= entity.speed;
+				if(e.intersects(OBJ)) {
+					
+						entity.collision = true;
+					
+					index = i;
+					}				
+					break;
+				case "dr":e.x += entity.speed;e.y += entity.speed;
+				if(e.intersects(OBJ)) {
+					
+						entity.collision = true;
+					
+					index = i;
+					}				
+					break;
+				case "dl":e.x -= entity.speed;e.y += entity.speed;
+				if(e.intersects(OBJ)) {
+					
+						entity.collision = true;
+					
+					
+						index = i;
+					}				
+					break;
+				
+				}
+			}
+			}
+		}
+		return index;
+	}
+	public void checkPlayer(Entity entity) {
+		Rectangle e = new Rectangle(entity.solidHitbox.x + entity.worldX, entity.solidHitbox.y + entity.worldY, entity.solidHitbox.width,entity.solidHitbox.height);
+		
+		
+		Rectangle OBJ = new Rectangle(p.player.solidHitbox);
+		
+		OBJ.x += p.player.worldX;
+		OBJ.y += p.player.worldY;
+			
+		if(entity.dir != null) {
+		switch(entity.dir) {
+		case "up": e.y -= entity.speed;
+			if(e.intersects(OBJ)) {
+				entity.collision = true;	
+			}
+			break;
+		case "down": e.y += entity.speed;
+		if(e.intersects(OBJ)) {
+			
+				entity.collision = true;
+			
+			}
+			break;
+		case "left": e.x -= entity.speed;
+		if(e.intersects(OBJ)) {
+			
+				entity.collision = true;
+			
+			}
+			break;
+		case "right": e.x += entity.speed;
+		if(e.intersects(OBJ)) {
+			
+				entity.collision = true;
+							}				
+			break;
+		case "ur":e.x += entity.speed; e.y -= entity.speed;
+		if(e.intersects(OBJ)) {
+			
+				entity.collision = true;
+			
+			}				
+			break;
+		case "ul":e.x -= entity.speed; e.y -= entity.speed;
+		if(e.intersects(OBJ)) {
+			
+				entity.collision = true;
+			
+			}				
+			break;
+		case "dr":e.x += entity.speed;e.y += entity.speed;
+		if(e.intersects(OBJ)) {
+			
+				entity.collision = true;
+			
+			}				
+			break;
+		case "dl":e.x -= entity.speed;e.y += entity.speed;
+		if(e.intersects(OBJ)) {
+			
+				entity.collision = true;
+			
+			}				
+			break;
+		
+		}
+	
+		}
+	}
 }

@@ -1,7 +1,5 @@
 package entity;
 
-import java.util.Random;
-
 import scoll2D.Panel2D;
 
 public class NPC_boss extends Entity{
@@ -14,15 +12,21 @@ public class NPC_boss extends Entity{
 		worldX = 7 * p.tileSize;
 		worldY = 8 * p.tileSize;
 		getImage();
+		setDialogue();
+	}
+	public void setDialogue() {
+		dialogue[0] = "what up chump!";
+		dialogue[1] = "on and on and on and on and on and on and \non and on and on and on and on and on"; 
 	}
 	public void getImage() {
 		up1 = setupSprite("res\\npc\\bossSprite.png",0,0,16,16);
-		right1 = setupSprite("res\\npc\\bossSprite.png",0,1,16,16);
+		left1 = setupSprite("res\\npc\\bossSprite.png",0,1,16,16);
 		down1 = setupSprite("res\\npc\\bossSprite.png",1,1,16,16);
-		left1 = setupSprite("res\\npc\\bossSprite.png",1,0,16,16);
+		right1 = setupSprite("res\\npc\\bossSprite.png",1,0,16,16);
 	}
 	public void setAction() {
-		if(actionFrameCounter == 60 *2) {
+		
+		if(actionFrameCounter == 60 *2 || collision ) {
 			
 			
 			int ran = (int) Math.round((Math.random() *100) + 1);
@@ -33,9 +37,21 @@ public class NPC_boss extends Entity{
 			actionFrameCounter = 0;
 //			System.out.println(ran);
 			
+			
 		}
 		
+		
+		
 		actionFrameCounter++;
+	}
+	public void speak() {
+		if(dialogue[dialogueIndex] == null) {
+			dialogueIndex = 0;
+		}
+		
+		p.ui.currentDialogue = dialogue[dialogueIndex];
+		dialogueIndex++;
+		
 	}
 
 }

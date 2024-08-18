@@ -33,8 +33,8 @@ public class RoomHandeler {
 				
 				if(rooms.get(i).intersects(compare) == false) {
 				
-					g2d.setColor(Color.black);
-					g2d.fillRect(rooms.get(i).x - p.cameraX, rooms.get(i).y - p.cameraY, rooms.get(i).width, rooms.get(i).height);
+					g2d.setColor(new Color(0,0,0,230));
+					g2d.fillRect(rooms.get(i).x - p.cameraX, rooms.get(i).y - p.cameraY, rooms.get(i).width + 1, rooms.get(i).height);
 				}
 				else if(rooms.get(i).intersects(compare) == true) {
 					currentRoom = i;

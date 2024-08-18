@@ -25,13 +25,24 @@ public class Entity {
 	public BufferedImage up1,up2,down1,down2,left1,left2,right1,right2;
 	int actionFrameCounter;
 	public boolean moving =false;
+	public String[] dialogue = new String[20];
+	public int dialogueIndex = 0;
 
 	public Entity(Panel2D p) {
 		this.p = p;
 	}
+//	public Entity(Panel2D p,Entity entity) {
+//		this.worldX = entity.worldX;
+//		this.worldY = entity.worldY;
+//		this.speed = entity.speed;
+//		this.dir = entity.dir;
+//		this.collision = entity.collision;
+//		this.p = p;
+//	}
 	public double norm(double speed) {
 		return speed * p.norm;
 	}
+	public void speak() {}
 	public void setAction() {}
 	public void update() {
 		moving = true;
@@ -40,6 +51,7 @@ public class Entity {
 		collision =false;
 		p.cc.check(this);
 		p.cc.OBJCheck(this, false);
+		p.cc.checkPlayer(this);
 		
 		
 	}
@@ -95,8 +107,8 @@ public class Entity {
 			}
 			
 			g2d.drawImage(img, screenX, screenY, p.tileSize, p.tileSize,null);
-			g2d.setColor(Color.red);
-			g2d.fillRect((worldX - p.cameraX)+solidHitbox.x,(worldY - p.cameraY)+solidHitbox.y,solidHitbox.width,solidHitbox.height);
+//			g2d.setColor(Color.red);
+//			g2d.fillRect((worldX - p.cameraX)+solidHitbox.x,(worldY - p.cameraY)+solidHitbox.y,solidHitbox.width,solidHitbox.height);
 			
 			worldCol++;
 			

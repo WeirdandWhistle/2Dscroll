@@ -4,10 +4,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -17,9 +22,10 @@ import entity.Entity;
 import entity.Player;
 import extra.CamLimit;
 import extra.RoomHandeler;
+import extra.UI;
 import object.SuperObject;
 import tile.TileManager;
-public class Panel2D extends JPanel implements ActionListener,KeyListener{
+public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseListener{
 	public final int scale = 1;
 	public final int ogTileSize = 48;
 	public final int tileSize = ogTileSize * scale;
@@ -50,6 +56,7 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 	public boolean XF = false;
 	public boolean YF = true;
 	
+	public boolean enterPressed;
 	public boolean platformer = false;
 	public boolean sprint =false;
 	public boolean d = false;
@@ -58,11 +65,28 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 	public boolean w = false;
 	public boolean s = false;
 	public boolean f = false;
+	public boolean enter = false;
+	
+	//MOUSE
+	public boolean mthis = false;
+	public int sx = 0;
+	public int sy = 0;
+	public int x = 500;
+	public int y = 100;
+	public int ex = 0;
+	public int ey = 0;
+	public int ax = 0;
+	public int ay = 0;
+	public Point m = new Point(sx,sy);
+	public Point am = new Point(ax,ay);
+	public Point screen = new Point(x,y);
 	
 	//GAMESTATE
-	public final int pausedState = 0;
+	public final int titleState = 0; 
+	public final int pausedState = 2;
 	public final int playState = 1;
-	public int gameState = playState;
+	public final int dialogueState = 5;
+	public int gameState = titleState;
 	
 	
 	private Timer gameClock;
@@ -76,6 +100,9 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 	public Initializer intit = new Initializer(this);
 	public CamLimit camL = new CamLimit(this);
 	public Entity[] npc = new Entity[10];
+	public UI ui = new UI(this);
+	
+	
 	
 	
 	
@@ -83,6 +110,8 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 		this.setPreferredSize(window);
 		this.requestFocusInWindow();
 		this.addKeyListener(this);
+		this.addMouseListener(this);
+		
 		intit.intit();
 			
 		gameClock = new Timer(gameTicks/1000,this); 
@@ -98,33 +127,57 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 		g2d.setColor(Color.white);
 		g2d.fillRect(0, 0,width,height);
 		
-		
-		//WORLD TILES
-		tileM.draw(g2d);
-		
-		// OBJECTS
-		for(int i = 0; i<= (obj.length - 1); i++) {
-			if(obj[i] != null) {
-				obj[i].draw(g2d,this);
-			}
+		// TILI SCREEN
+		if(gameState == titleState) {
+			ui.draw(g2d);
 		}
-		// NPC
-		for(int i = 0; i<=(npc.length -1);i++) {
-			if(npc[i] != null) {
-				npc[i].draw(g2d);
+		else {
+			//WORLD TILES
+			tileM.draw(g2d);
+			
+			// OBJECTS
+			for(int i = 0; i<= (obj.length - 1); i++) {
+				if(obj[i] != null) {
+					obj[i].draw(g2d,this);
+				}
 			}
+			// NPC
+			for(int i = 0; i<=(npc.length -1);i++) {
+				if(npc[i] != null) {
+					npc[i].draw(g2d);
+				}
+			}
+			//PLAYER
+			player.draw(g2d);
+			
+			//ROOMS
+			roomH.cover(g2d);
+			
+			// UI
+			ui.draw(g2d);
+//			g2d.drawString("lol",10,10);
 		}
-		//PLAYER
-		player.draw(g2d);
 		
-		//ROOMS
-		roomH.cover(g2d);
+
+		
+		
+		
 		
 	}
 	public void run() {
 		
+		ax = MouseInfo.getPointerInfo().getLocation().x;
+		ay = MouseInfo.getPointerInfo().getLocation().y;
+		this.mouseUpdate();
+		
+		
+		System.out.println(screen);
+		
+		
+		this.repaint();
 		switch(gameState) {
 		case playState:
+			
 			player.update();
 			
 			for(int i =0;i <= npc.length-1;i++) {
@@ -132,13 +185,33 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 					npc[i].update();
 				}
 			}
-			
-			this.repaint();
 			break;
 		case pausedState:
 			break;
+		case dialogueState:
+			break;
+		case titleState:
+			break;
 		}
+		mthis = false;
 	}
+	public void mathRevitavePosEntered() {
+		x = ax - ex;
+		y = ay - ey;
+	}
+	public void mathRevitavePosScreen() {
+		x = (ax - sx);
+		y = (ay - sy);
+	}
+	public void mouseUpdate() {
+		sx = ax - x;
+		sy = ay - y;
+		
+		m.setLocation(sx, sy);
+		am.setLocation(ax, ay);
+		screen.setLocation(x, y);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		run();
@@ -166,11 +239,12 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 	@Override
 	public void keyTyped(KeyEvent e) {
 		
+//		System.out.println(e.getKeyChar());
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println(e.getKeyCode());
+//		System.out.println(e.getKeyCode());
 		if(e.getKeyCode()==16) {
 			sprint=true;
 		}		
@@ -188,6 +262,18 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 		}
 		if(e.getKeyCode()==83) {
 			s=true;
+		}
+		if(gameState ==playState) {
+			if(e.getKeyCode()==10) {
+				enterPressed = true;
+			}
+		}
+		
+		if(gameState==dialogueState) {
+			if(e.getKeyCode()==10) {
+				gameState = playState;
+			}
+			
 		}
 		
 		
@@ -214,6 +300,50 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener{
 			s=false;
 		}
 		
+		
+		
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		sx = e.getX();
+		sy = e.getY();
+		
+		this.mathRevitavePosScreen();
+		
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		System.out.println(e.getButton());
+		if(e.getButton()==1) {
+			mthis = true;
+//			m.setLocation(mx, my);
+			
+		}
+		
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+//		if(e.getButton()==1) {
+//			mthis = false;
+//		}
+
+		
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		ex=e.getX();
+		ey=e.getY();
+		m.setLocation(e.getLocationOnScreen());
+		System.out.println(m);
+		
+		this.mathRevitavePosEntered();
+		
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 

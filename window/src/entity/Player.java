@@ -54,6 +54,9 @@ public class Player extends Entity {
 			p.cc.check(this);
 			p.cc.OBJCheck(this,true);
 			
+			int npcIndex = p.cc.checkEntity(this, p.npc);
+			npcInteract(npcIndex);
+			
 			if(collision == false && dir !=null && moving) {
 				
 				switch(dir) {
@@ -100,6 +103,22 @@ public class Player extends Entity {
 			p.camL.worldLimit();
 			
 		}
+	}
+	public void pickupObj(int obj) {
+		if(obj != 999) {
+			
+		}
+	}
+	public void npcInteract(int npc) {
+		if(npc != 999) {
+			
+			if(p.enterPressed == true) {
+			p.gameState = p.dialogueState;
+			
+			p.npc[npc].speak();
+		}
+		}
+		p.enterPressed = false;
 	}
 	public void draw(Graphics2D g2d) {
 		g2d.setColor(Color.CYAN);
