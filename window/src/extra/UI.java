@@ -116,6 +116,10 @@ public class UI {
 		g2d.setColor(Color.black);
 		if(but[0].entered()) {
 		g2d.drawRect(but[0].x,but[0].y,but[0].width,but[0].height);
+		if(but[0].clicked()) {
+			p.gameState = p.playState;
+
+		}
 		}
 		g2d.drawString(text, but[0].x, but[0].y + this.GetHeightOfString(text));
 //		p.add(b1);

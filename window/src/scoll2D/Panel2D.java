@@ -77,6 +77,8 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 	public int ey = 0;
 	public int ax = 0;
 	public int ay = 0;
+	public int tf = 0;
+	public int ctf = 0;
 	public Point m = new Point(sx,sy);
 	public Point am = new Point(ax,ay);
 	public Point screen = new Point(x,y);
@@ -171,7 +173,7 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 		this.mouseUpdate();
 		
 		
-		System.out.println(screen);
+//		System.out.println(screen);
 		
 		
 		this.repaint();
@@ -193,7 +195,7 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 		case titleState:
 			break;
 		}
-		mthis = false;
+		tf++;
 	}
 	public void mathRevitavePosEntered() {
 		x = ax - ex;
@@ -206,6 +208,12 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 	public void mouseUpdate() {
 		sx = ax - x;
 		sy = ay - y;
+		
+		if(ctf != 0) {
+			if(ctf < tf) {
+				mthis = false;
+			}
+		}
 		
 		m.setLocation(sx, sy);
 		am.setLocation(ax, ay);
@@ -313,9 +321,10 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {
-		System.out.println(e.getButton());
+//		System.out.println(e.getButton());
 		if(e.getButton()==1) {
 			mthis = true;
+			ctf = tf;
 //			m.setLocation(mx, my);
 			
 		}
@@ -335,7 +344,7 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 		ex=e.getX();
 		ey=e.getY();
 		m.setLocation(e.getLocationOnScreen());
-		System.out.println(m);
+//		System.out.println(m);
 		
 		this.mathRevitavePosEntered();
 		
