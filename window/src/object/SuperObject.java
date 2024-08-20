@@ -21,8 +21,8 @@ public class SuperObject {
 			while(worldCol < p.maxWorldCol && worldRow < p.maxWorldRow) {
 		
 				
-				int screenX = WX - p.player.worldX + p.player.screenX;
-				int screenY = WY - p.player.worldY + p.player.screenY;
+				int screenX = WX - p.cameraX;
+				int screenY = WY - p.cameraY;
 				
 				g2d.drawImage(img, screenX, screenY, p.tileSize, p.tileSize,null);
 				
@@ -42,9 +42,5 @@ public class SuperObject {
 
 		obj.solidArea.width = p.tileSize;
 		obj.solidArea.height = p.tileSize;
-		
-		System.out.println("test");
-
-		
 	}
 }

@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import extra.UTool;
 import scoll2D.Panel2D;
 
 public class TileManager {
@@ -62,25 +63,22 @@ public class TileManager {
 	}
 	public void getTileTex() {
 		
+		setup(0,"grass.png",false);
+		setup(1,"path.png",false);
+		setup(2,"brick.png",true);
+		setup(3,"water.png",true);
 		
+	}
+	public void setup(int index, String path, boolean collison) {
+		
+		UTool ut = new UTool();
 		
 		
 		try {
-			
-			tile[0] = new Tile();
-			tile[0].img=ImageIO.read(new File("res\\tiles\\grass.png"));
-			
-
-			tile[1] = new Tile();
-			tile[1].img=(ImageIO.read(new File("res\\tiles\\path.png")));
-
-			tile[2] = new Tile();
-			tile[2].img=(ImageIO.read(new File("res\\tiles\\brick.png")));
-			tile[2].col = true;
-			
-			tile[3] = new Tile();
-			tile[3].img=(ImageIO.read(new File("res\\tiles\\water.png")));
-			tile[3].col =true;
+			tile[index] = new Tile();
+			tile[index].img = ImageIO.read(new File("res\\tiles\\" + path));
+			tile[index].img = ut.scaleImage(tile[index].img, p.tileSize, p.tileSize);
+			tile[index].col = collison;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -124,13 +122,13 @@ public class TileManager {
 				int num = tileNum[worldCol][worldRow];
 				int worldX = worldCol * p.tileSize;
 				int worldY = worldRow * p.tileSize;
-				int screenX = worldX - p.player.x + p.player.screenX;
-				int screenY = worldY - p.player.y + p.player.screenY;
+				int screenX = worldX - p.cameraX;
+				int screenY = worldY - p.cameraY;
 //				if(worldX + p.tileSize > p.player.x - p.player.screenX &&
 //				   worldX - p.tileSize < p.player.x + p.player.screenX &&
 //				   worldY + p.tileSize > p.player.y - p.player.screenY &&
 //				   worldY - p.tileSize < p.player.y + p.player.screenY) {
-				g2d.drawImage(tile[num].img, screenX, screenY, p.tileSize, p.tileSize,null);
+				g2d.drawImage(tile[num].img, screenX, screenY,null);
 //				}
 				worldCol++;
 				

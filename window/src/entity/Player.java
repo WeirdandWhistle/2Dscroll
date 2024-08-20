@@ -7,25 +7,21 @@ import java.awt.Rectangle;
 import scoll2D.Panel2D;
 
 public class Player extends Entity {
-
-	Panel2D p;
 	
 	public int screenX;
 	public int screenY;
 	public boolean follow;
 	public Player(Panel2D p) {
-		this.p = p;
+		super(p);
 		screenX = p.width/2 -(p.tileSize/2);
 		screenY = p.height/2 -(p.tileSize/2);
-		follow = false;
+		follow = true;
 		setDefVals();
 	}
-	public double norm(double speed) {
-		return speed * p.norm;
-	}
+	
 	public void setDefVals() {
-		x = 9 * p.tileSize;
-		y = 9 * p.tileSize;
+		worldX = 2 * p.tileSize;
+		worldY = 2 * p.tileSize;
 		speed = 4;
 		solidHitbox = new Rectangle();
 		solidHitbox.x = 8 * p.scale;
@@ -33,57 +29,101 @@ public class Player extends Entity {
 		solidHitbox.height = 32 * p.scale;
 		solidHitbox.width = 32 * p.scale;
 		}
-	public void update(Graphics2D g2d) {
+	public void update() {
 		if(!p.platformer) {
 			
 			speed = 4;
 			
-			if(p.w)dir = "up";
+			if(p.w) {dir = "up"; moving =true;}
 			
-			if(p.s)dir = "down";
+			if(p.s) {dir = "down";moving =true;}
 			
-			if(p.a)dir = "left";
+			if(p.a) {dir = "left";moving =true;}
 			
-			if(p.d)dir = "right";
+			if(p.d) {dir = "right";moving =true;}
 			
-			if(p.w && p.d)dir ="ur";
+			if(p.w && p.d) {dir ="ur";moving =true;}
 			
-			if(p.w && p.a)dir = "ul";
+			if(p.w && p.a) {dir = "ul";moving =true;}
 			
-			if(p.s && p.d)dir = "dr";
+			if(p.s && p.d) {dir = "dr";moving =true;}
 			
-			if(p.s && p.a)dir = "dl";
+			if(p.s && p.a) {dir = "dl";moving =true;}
 			
 			
 			p.cc.check(this);
 			p.cc.OBJCheck(this,true);
-			if(collision == false && dir !=null) {
+			
+			int npcIndex = p.cc.checkEntity(this, p.npc);
+			npcInteract(npcIndex);
+			
+			if(collision == false && dir !=null && moving) {
+				
 				switch(dir) {
-				case "up": worldY -= speed; break;
-				case "down":  worldY += speed; break;
-				case "left": worldX -= speed; break;
-				case "right": worldX += speed; break;
-				case "ul": worldX -= norm(speed); worldY -= norm(speed); break;
-				case "ur": worldX += norm(speed); worldY -= norm(speed); break;
-				case "dl": worldX -= norm(speed); worldY += norm(speed); break;
-				case "dr": worldX += norm(speed); worldY += norm(speed); break;
+				case "up": worldY -= speed;if(p.YF) {p.cameraY -= speed;} break;
+				case "down":  worldY += speed; if(p.YF) {p.cameraY += speed;} break;
+				case "left": worldX -= speed;if(p.XF) {p.cameraX -= speed;} break;
+				case "right": worldX += speed;if(p.XF) {p.cameraX += speed;} break;
+				case "ul":
+					worldX -= norm(speed);
+					worldY -= norm(speed);
+					if(p.XF) {p.cameraX -= norm(speed);}
+					if(p.YF) {p.cameraY -= norm(speed);} 
+					break;
+				case "ur":
+					worldX += norm(speed);
+					worldY -= norm(speed);
+					if(p.XF) {p.cameraX += norm(speed);}
+					if(p.YF) {p.cameraY -= norm(speed);}
+					break;
+				case "dl":
+					worldX -= norm(speed);
+					worldY += norm(speed);
+					if(p.XF) {p.cameraX -= norm(speed);}
+					if(p.YF) {p.cameraY += norm(speed);}
+					break;
+				case "dr":
+					worldX += norm(speed); 
+					worldY += norm(speed);
+					if(p.XF) {p.cameraX += norm(speed);}
+					if(p.YF) {p.cameraY += norm(speed);}
+					break;
 				default: break;
 				}
-				dir=null;
+				
 			}
-			if(follow) {
-			x = worldX;
-			y = worldY;
-			}
+			moving=false;
 			
-			if(!follow) {
-				screenX = worldX;
-				screenY = worldY;
-			}
-			g2d.setColor(Color.CYAN);
-			g2d.fillRect(screenX,screenY,p.tileSize,p.tileSize);
-			g2d.setColor(Color.red);
-			g2d.fillRect(screenX+solidHitbox.x, screenY+solidHitbox.y, solidHitbox.width, solidHitbox.height);
+			
+			
+			screenX = worldX - p.cameraX;
+			screenY = worldY - p.cameraY;
+			
+			p.camL.snapLimit();
+			p.camL.worldLimit();
+			
 		}
+	}
+	public void pickupObj(int obj) {
+		if(obj != 999) {
+			
+		}
+	}
+	public void npcInteract(int npc) {
+		if(npc != 999) {
+			
+			if(p.enterPressed == true) {
+			p.gameState = p.dialogueState;
+			
+			p.npc[npc].speak();
+		}
+		}
+		p.enterPressed = false;
+	}
+	public void draw(Graphics2D g2d) {
+		g2d.setColor(Color.CYAN);
+		g2d.fillRect(screenX,screenY,p.tileSize,p.tileSize);
+		g2d.setColor(Color.red);
+		g2d.fillRect(screenX+solidHitbox.x, screenY+solidHitbox.y, solidHitbox.width, solidHitbox.height);
 	}
 }
