@@ -121,7 +121,7 @@ public class UI {
 
 		}
 		}
-		g2d.drawString(text, but[0].x, but[0].y + this.GetHeightOfString(text));
+		g2d.drawString(text, but[0].x+2, but[0].y + this.GetHeightOfString(text));
 //		p.add(b1);
 		
 		
