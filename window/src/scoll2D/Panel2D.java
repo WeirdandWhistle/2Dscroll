@@ -69,6 +69,7 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 	
 	//MOUSE
 	public boolean mthis = false;
+	public boolean pmp = false;
 	public int sx = 0;
 	public int sy = 0;
 	public int x = 500;
@@ -88,7 +89,9 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 	public final int pausedState = 2;
 	public final int playState = 1;
 	public final int dialogueState = 5;
+	public final int computerScreen = 6;
 	public int gameState = titleState;
+	public int prevGameState = gameState;
 	
 	
 	private Timer gameClock;
@@ -130,7 +133,7 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 		g2d.fillRect(0, 0,width,height);
 		
 		// TILI SCREEN
-		if(gameState == titleState) {
+		if(gameState == titleState || gameState == computerScreen) {
 			ui.draw(g2d);
 		}
 		else {
@@ -156,6 +159,7 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 			roomH.cover(g2d);
 			
 			// UI
+			
 			ui.draw(g2d);
 //			g2d.drawString("lol",10,10);
 		}
@@ -167,6 +171,8 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 		
 	}
 	public void run() {
+		
+		System.out.println(mthis);
 		
 		ax = MouseInfo.getPointerInfo().getLocation().x;
 		ay = MouseInfo.getPointerInfo().getLocation().y;
@@ -194,8 +200,12 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 			break;
 		case titleState:
 			break;
+		case computerScreen:
+			break;
 		}
+		
 		tf++;
+		
 	}
 	public void mathRevitavePosEntered() {
 		x = ax - ex;
@@ -209,11 +219,12 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 		sx = ax - x;
 		sy = ay - y;
 		
-		if(ctf != 0) {
-			if(ctf < tf) {
-				mthis = false;
-			}
-		}
+//		if(ctf != 0) {
+//			if(ctf < tf) {
+//				mthis = false;
+//				System.out.println("debug");
+//			}
+//		}
 		
 		m.setLocation(sx, sy);
 		am.setLocation(ax, ay);
@@ -324,7 +335,8 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 //		System.out.println(e.getButton());
 		if(e.getButton()==1) {
 			mthis = true;
-			ctf = tf;
+//			ctf = tf;
+//			System.out.println("bug");
 //			m.setLocation(mx, my);
 			
 		}
@@ -333,9 +345,9 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
-//		if(e.getButton()==1) {
-//			mthis = false;
-//		}
+		if(e.getButton()==1) {
+			mthis = false;
+		}
 
 		
 	}

@@ -16,6 +16,7 @@ public class Button implements MouseListener{
 	public int y;
 	public int width;
 	public int height;
+	public boolean pe = false;
 	
 	
 	public Button(Panel2D p, Rectangle button) {
@@ -28,18 +29,7 @@ public class Button implements MouseListener{
 		
 		
 	}
-	public void intit(Panel2D p, Rectangle button) {
-		this.p=p;
-		this.button=button;
-		x=button.x;
-		y=button.y;
-		width=button.width;
-		height=button.height;
-	}
-	public void intit(Panel2D p) {
-		this.p=p;
-	}
-	public void newButton(Rectangle button) {
+	public void modButton(Rectangle button) {
 		this.button=button;
 		x=button.x;
 		y=button.y;
@@ -56,6 +46,12 @@ public class Button implements MouseListener{
 		else {
 			return false;
 		}
+	}
+	public void move(int x,int y) {
+		button.x = x;
+		button.y = y;
+		x=this.x;
+		y=this.y;
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
