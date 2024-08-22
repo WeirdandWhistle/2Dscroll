@@ -172,7 +172,7 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 	}
 	public void run() {
 		
-		System.out.println(mthis);
+//		System.out.println(mthis);
 		
 		ax = MouseInfo.getPointerInfo().getLocation().x;
 		ay = MouseInfo.getPointerInfo().getLocation().y;

@@ -26,8 +26,8 @@ public class UI {
 	private BufferedImage door;
 	private int dx = 0;
 	private int dy = 0;
-	private int sx = 0;
-	private int sy = 0;
+	private int[] sx = {0,0,0};
+	private int[] sy = {0,0,0};
 //	private int px = 0;
 //	private int py = 0;
 	
@@ -156,11 +156,11 @@ public class UI {
 		
 		if(p.pmp  && (but[0].pe || but[0].entered())) {
 			
-			dx = p.sx - sx;
-			dy = p.sy - sy;
+			dx = p.sx - sx[0];
+			dy = p.sy - sy[0];
 			
-			sx = 0;
-			sy = 0;
+			sx[0] = 0;
+			sy[0] = 0;
 			
 			
 			
@@ -172,8 +172,8 @@ public class UI {
 		
 		
 		
-		sx = p.sx;
-		sy = p.sy;
+		sx[0] = p.sx;
+		sy[0] = p.sy;
 		p.pmp = p.mthis;
 		but[0].pe = false;
 		
@@ -183,11 +183,11 @@ public class UI {
 		
 if(p.pmp  && (but[1].pe || but[1].entered())) {
 			
-			dx = p.sx - sx;
-			dy = p.sy - sy;
+			dx = p.sx - sx[1];
+			dy = p.sy - sy[1];
 			
-			sx = 0;
-			sy = 0;
+			sx[1] = 0;
+			sy[1] = 0;
 			
 			
 			
@@ -199,8 +199,8 @@ if(p.pmp  && (but[1].pe || but[1].entered())) {
 		
 		
 		
-		sx = p.sx;
-		sy = p.sy;
+		sx[1] = p.sx;
+		sy[1] = p.sy;
 		p.pmp = p.mthis;
 		but[1].pe = false;
 		
