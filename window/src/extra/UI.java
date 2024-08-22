@@ -28,8 +28,7 @@ public class UI {
 	private int dy = 0;
 	private int[] sx = {0,0,0};
 	private int[] sy = {0,0,0};
-//	private int px = 0;
-//	private int py = 0;
+	private int butPri = -1;
 	
 	
 	public UI(Panel2D p) {
@@ -153,8 +152,11 @@ public class UI {
 		
 		g2d.drawImage(door,x,y,null);
 		
-		
-		if(p.pmp  && (but[0].pe || but[0].entered())) {
+		if(butPri != -1) {}
+		else {
+			butPri =0;
+		}
+		if(p.pmp  && (but[0].pe || but[0].entered())&& butPri == 0) {
 			
 			dx = p.sx - sx[0];
 			dy = p.sy - sy[0];
@@ -162,13 +164,13 @@ public class UI {
 			sx[0] = 0;
 			sy[0] = 0;
 			
-			
+			butPri = 0;
 			
 			but[0].move(but[0].x += dx, but[0].y += dy);
 		}
-//		if(but[0].entered()) {
-//			but[0].pe = true;
-//		}
+		else {
+			butPri = -1;
+		}
 		
 		
 		
@@ -180,8 +182,11 @@ public class UI {
 		if(but[0].entered()) {
 			but[0].pe = true;
 		}
-		
-if(p.pmp  && (but[1].pe || but[1].entered())) {
+		if(butPri != -1) {}
+		else {
+			butPri =1;
+		}
+if(p.pmp  && (but[1].pe || but[1].entered()) && butPri == 1) {
 			
 			dx = p.sx - sx[1];
 			dy = p.sy - sy[1];
@@ -193,6 +198,9 @@ if(p.pmp  && (but[1].pe || but[1].entered())) {
 			
 			but[1].move(but[1].x += dx, but[1].y += dy);
 		}
+else {
+	butPri = -1;
+}
 //		if(but[0].entered()) {
 //			but[0].pe = true;
 //		}

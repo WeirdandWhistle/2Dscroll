@@ -25,7 +25,7 @@ import extra.RoomHandeler;
 import extra.UI;
 import object.SuperObject;
 import tile.TileManager;
-public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseListener{
+public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseListener,Runnable{
 	public final int scale = 1;
 	public final int ogTileSize = 48;
 	public final int tileSize = ogTileSize * scale;
@@ -94,7 +94,8 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 	public int prevGameState = gameState;
 	
 	
-	private Timer gameClock;
+//	private Timer gameClock;
+	public Thread gameThread;
 	public final int gameTicks = 60;
 	public Dimension window = new Dimension(width,height);
 	public TileManager tileM = new TileManager(this);
@@ -118,9 +119,12 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 		this.addMouseListener(this);
 		
 		intit.intit();
-			
-		gameClock = new Timer(gameTicks/1000,this); 
-		gameClock.start();
+		
+		this.startGameThread();
+		}
+	public void startGameThread() {
+		gameThread = new Thread(this);
+		gameThread.start();
 	}
 	public void paint(Graphics g) {
 		
@@ -170,7 +174,7 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 		
 		
 	}
-	public void run() {
+	public void update() {
 		
 //		System.out.println(mthis);
 		
@@ -232,27 +236,57 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 	}
 	
 	@Override
+	public void run() {
+		
+		double drawInterval = 1000000000/gameTicks;
+		double nextdrawTime = System.nanoTime() + drawInterval;
+		
+		
+		while(gameThread != null) {
+			if(t==0) {
+				starttime = System.currentTimeMillis();			
+				}
+			update();
+		
+		
+		
+//		System.out.println(e.getSource());
+		
+			
+				t++;
+				if(t==gameTicks) {
+					endtime = System.currentTimeMillis();
+					t=0;
+					ats++;
+					deltatime = endtime - starttime;
+					rt += deltatime;
+					atime = rt/ats;
+					System.out.println(atime);
+			}
+				
+			
+			
+			try {
+				double remaningTime = nextdrawTime - System.nanoTime();
+				remaningTime = remaningTime / 1000000;
+				
+				if(remaningTime < 0) {
+					remaningTime = 0;
+				}
+				
+				Thread.sleep((long) remaningTime);
+				
+				nextdrawTime += drawInterval;
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	@Override
 	public void actionPerformed(ActionEvent e) {
-		run();
-//		if(platformer) {
-//				pf.platformRender();
-//			}
-//			if(!platformer) {
-//				td2d.TopDownRender();
-//			}
-//			if(t==0) {
-//			starttime = System.currentTimeMillis();			
-//			}
-//			t++;
-//			if(t==gameTicks) {
-//				endtime = System.currentTimeMillis();
-//				t=0;
-//				ats++;
-//				deltatime = endtime - starttime;
-//				rt += deltatime;
-//				atime = rt/ats;
-//				System.out.println(atime);
-//			}
+		
 	}
 
 	@Override
