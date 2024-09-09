@@ -19,7 +19,7 @@ public class Frame extends JFrame{
 		this.setLocation(500,100);
 		this.setTitle("2D Scroll game");
 		this.addKeyListener(panel);
-		this.addMouseListener(panel);
+		this.addMouseListener(panel.mh);
 		
 		
 		this.add(panel);

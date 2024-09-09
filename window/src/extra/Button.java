@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 
 import scoll2D.Panel2D;
 
-public class Button implements MouseListener{
+public class Button{
 	Panel2D p;
 	public Rectangle button;
 	public int x;
@@ -53,24 +53,4 @@ public class Button implements MouseListener{
 		x=this.x;
 		y=this.y;
 	}
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		
-		}
-	@Override
-	public void mousePressed(MouseEvent e) {
-		
-		}
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		
-		}
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		
-		}
-	@Override
-	public void mouseExited(MouseEvent e) {
-		
-		}
 }

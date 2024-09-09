@@ -156,60 +156,54 @@ public class UI {
 		else {
 			butPri =0;
 		}
-		if(p.pmp  && (but[0].pe || but[0].entered())&& butPri == 0) {
+//		System.out.println(p.pmp +", " + but[0].pe + ", " + but[0].entered()+ ", " + butPri);
+//		System.out.println(p.pmp);
+//		System.out.println(but[0].entered());
+		if(p.mthis && (but[0].entered() || but[0].pe) && butPri == 0) {
 			
 			dx = p.sx - sx[0];
 			dy = p.sy - sy[0];
 			
-			sx[0] = 0;
-			sy[0] = 0;
+			int newx = but[0].x += dx;
+			int newy = but[0].y += dy;
 			
-			butPri = 0;
+			but[0].modButton(new Rectangle(newx,newy,but[0].width,but[0].height));
 			
-			but[0].move(but[0].x += dx, but[0].y += dy);
+			sx[0] = p.sx;
+			sy[0] = p.sy;
+		}
+		else {
+			butPri = -1;
+		}
+		sx[0] = p.sx;
+		sy[0] = p.sy;
+		but[0].pe = false;
+		if(but[0].entered()) but[0].pe = true;
+		
+		
+		if(butPri != -1) {}
+		else {
+			butPri =1;
+		}
+		if(p.mthis  && (but[1].pe || but[1].entered()) && butPri == 1) {
+
+			dx = p.sx - sx[1];
+			dy = p.sy - sy[1];
+			
+			int newx = but[1].x += dx;
+			int newy = but[1].y += dy;
+			
+			but[1].modButton(new Rectangle(newx,newy,but[1].width,but[1].height));
+			
+			sx[1] = p.sx;
+			sy[1] = p.sy;
 		}
 		else {
 			butPri = -1;
 		}
 		
-		
-		
-		sx[0] = p.sx;
-		sy[0] = p.sy;
-		p.pmp = p.mthis;
-		but[0].pe = false;
-		
-		if(but[0].entered()) {
-			but[0].pe = true;
-		}
-		if(butPri != -1) {}
-		else {
-			butPri =1;
-		}
-if(p.pmp  && (but[1].pe || but[1].entered()) && butPri == 1) {
-			
-			dx = p.sx - sx[1];
-			dy = p.sy - sy[1];
-			
-			sx[1] = 0;
-			sy[1] = 0;
-			
-			
-			
-			but[1].move(but[1].x += dx, but[1].y += dy);
-		}
-else {
-	butPri = -1;
-}
-//		if(but[0].entered()) {
-//			but[0].pe = true;
-//		}
-		
-		
-		
 		sx[1] = p.sx;
 		sy[1] = p.sy;
-		p.pmp = p.mthis;
 		but[1].pe = false;
 		
 		if(but[1].entered()) {
@@ -222,7 +216,6 @@ else {
 		g2d.fillRect(but[0].x, but[0].y, but[0].width, but[0].height);
 		g2d.setColor(Color.green);
 		g2d.fillRect(but[1].x, but[1].y, but[1].width, but[1].height);
-		
 		
 		
 	}

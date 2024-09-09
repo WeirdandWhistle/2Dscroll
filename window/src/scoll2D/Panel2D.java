@@ -25,7 +25,7 @@ import extra.RoomHandeler;
 import extra.UI;
 import object.SuperObject;
 import tile.TileManager;
-public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseListener,Runnable{
+public class Panel2D extends JPanel implements ActionListener,KeyListener,Runnable{
 	public final int scale = 1;
 	public final int ogTileSize = 48;
 	public final int tileSize = ogTileSize * scale;
@@ -80,9 +80,8 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 	public int ay = 0;
 	public int tf = 0;
 	public int ctf = 0;
+	
 	public Point m = new Point(sx,sy);
-	public Point am = new Point(ax,ay);
-	public Point screen = new Point(x,y);
 	
 	//GAMESTATE
 	public final int titleState = 0; 
@@ -107,6 +106,7 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 	public CamLimit camL = new CamLimit(this);
 	public Entity[] npc = new Entity[10];
 	public UI ui = new UI(this);
+	public MouseHandler mh = new MouseHandler(this);
 	
 	
 	
@@ -116,7 +116,7 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 		this.setPreferredSize(window);
 		this.requestFocusInWindow();
 		this.addKeyListener(this);
-		this.addMouseListener(this);
+//		this.addMouseListener(mh);
 		
 		intit.intit();
 		
@@ -175,12 +175,12 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 		
 	}
 	public void update() {
-		
+//		System.out.println(m);
 //		System.out.println(mthis);
-		
-		ax = MouseInfo.getPointerInfo().getLocation().x;
-		ay = MouseInfo.getPointerInfo().getLocation().y;
-		this.mouseUpdate();
+//		
+//		ax = MouseInfo.getPointerInfo().getLocation().x;
+//		ay = MouseInfo.getPointerInfo().getLocation().y;
+//		this.mouseUpdate();
 		
 		
 //		System.out.println(screen);
@@ -211,17 +211,17 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 		tf++;
 		
 	}
-	public void mathRevitavePosEntered() {
-		x = ax - ex;
-		y = ay - ey;
-	}
-	public void mathRevitavePosScreen() {
-		x = (ax - sx);
-		y = (ay - sy);
-	}
-	public void mouseUpdate() {
-		sx = ax - x;
-		sy = ay - y;
+//	public void mathRevitavePosEntered() {
+//		x = ax - ex;
+//		y = ay - ey;
+//	}
+//	public void mathRevitavePosScreen() {
+//		x = (ax - sx);
+//		y = (ay - sy);
+//	}
+//	public void mouseUpdate() {
+//		sx = ax - x;
+//		sy = ay - y;
 		
 //		if(ctf != 0) {
 //			if(ctf < tf) {
@@ -230,10 +230,10 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 //			}
 //		}
 		
-		m.setLocation(sx, sy);
-		am.setLocation(ax, ay);
-		screen.setLocation(x, y);
-	}
+//		m.setLocation(sx, sy);
+//		am.setLocation(ax, ay);
+//		screen.setLocation(x, y);
+//	}
 	
 	@Override
 	public void run() {
@@ -243,9 +243,9 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 		
 		
 		while(gameThread != null) {
-			if(t==0) {
-				starttime = System.currentTimeMillis();			
-				}
+//			if(t==0) {
+//				starttime = System.currentTimeMillis();			
+//				}
 			update();
 		
 		
@@ -253,16 +253,16 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 //		System.out.println(e.getSource());
 		
 			
-				t++;
-				if(t==gameTicks) {
-					endtime = System.currentTimeMillis();
-					t=0;
-					ats++;
-					deltatime = endtime - starttime;
-					rt += deltatime;
-					atime = rt/ats;
-					System.out.println(atime);
-			}
+//				t++;
+//				if(t==gameTicks) {
+//					endtime = System.currentTimeMillis();
+//					t=0;
+//					ats++;
+//					deltatime = endtime - starttime;
+//					rt += deltatime;
+//					atime = rt/ats;
+//					System.out.println(atime);
+//			}
 				
 			
 			
@@ -356,50 +356,6 @@ public class Panel2D extends JPanel implements ActionListener,KeyListener,MouseL
 		
 		
 	}
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		sx = e.getX();
-		sy = e.getY();
-		
-		this.mathRevitavePosScreen();
-		
-	}
-	@Override
-	public void mousePressed(MouseEvent e) {
-//		System.out.println(e.getButton());
-		if(e.getButton()==1) {
-			mthis = true;
-//			ctf = tf;
-//			System.out.println("bug");
-//			m.setLocation(mx, my);
-			
-		}
-		
-		
-	}
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		if(e.getButton()==1) {
-			mthis = false;
-		}
-
-		
-	}
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		ex=e.getX();
-		ey=e.getY();
-		m.setLocation(e.getLocationOnScreen());
-//		System.out.println(m);
-		
-		this.mathRevitavePosEntered();
-		
-		
-	}
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 }
