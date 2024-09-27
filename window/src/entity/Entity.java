@@ -124,7 +124,7 @@ public class Entity {
 		BufferedImage img = null;
 		
 		try {
-			img = ImageIO.read(new File(filePath));
+			img = ImageIO.read(getClass().getResourceAsStream(filePath));
 			img = ut.scaleImage(img, p.tileSize, p.tileSize);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -135,7 +135,7 @@ public class Entity {
 	public BufferedImage setupSprite(String filePath,int col,int row,int width,int height) {
 		BufferedImage img = null;
 		try {
-			img = ImageIO.read(new File(filePath));
+			img = ImageIO.read(getClass().getResourceAsStream(filePath));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

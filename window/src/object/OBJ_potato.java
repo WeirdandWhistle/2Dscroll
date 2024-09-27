@@ -15,7 +15,7 @@ public class OBJ_potato extends SuperObject {
 		name = "potato";
 		
 		try {
-			img = ImageIO.read(new File("res\\objects\\potato.png"));
+			img = ImageIO.read(getClass().getResourceAsStream("/objects/potato.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -31,7 +31,7 @@ public class OBJ_potato extends SuperObject {
 		name = "potato";
 		
 		try {
-			img = ImageIO.read(new File("res\\objects\\potato.png"));
+			img = ImageIO.read(getClass().getResourceAsStream("/objects/potato.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

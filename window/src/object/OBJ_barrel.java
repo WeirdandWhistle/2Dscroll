@@ -16,7 +16,7 @@ public class OBJ_barrel extends SuperObject{
 		collision = true;
 		
 		try {
-			img = ImageIO.read(new File("res\\objects\\barrel.png"));
+			img = ImageIO.read(getClass().getResourceAsStream("/objects/barrel.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -31,7 +31,7 @@ public OBJ_barrel(Panel2D p,int WX, int WY) {
 		intitHitbox(p,this);
 		
 		try {
-			img = ImageIO.read(new File("res\\objects\\barrel.png"));
+			img = ImageIO.read(getClass().getResourceAsStream("/objects/barrel.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -37,7 +37,7 @@ public class UI {
 		SansSerif40 = new Font("SansSerif",Font.PLAIN,40);
 		SansSerif80 = new Font("SansSerif",Font.PLAIN,80);
 		
-		door = setup("res\\extra\\door.png");
+		door = setup("/extra/door.png");
 		
 		this.setupButtonsTitle();
 	}
@@ -98,7 +98,7 @@ public class UI {
 		BufferedImage img = null;
 		
 		try {
-			img = ImageIO.read(new File(filePath));
+			img = ImageIO.read(getClass().getResourceAsStream(filePath));
 			img = ut.scaleImage(img, p.tileSize, p.tileSize);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

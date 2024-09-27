@@ -7,7 +7,7 @@ public class Mat_package extends Material {
 	public Mat_package(Panel2D p) {
 		super(p);
 		name = "package";
-		stillImg = setup("res\\materials\\package.png");
+		stillImg = setup("/materials/package.png");
 		
 	}
 
