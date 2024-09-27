@@ -19,10 +19,10 @@ public class NPC_boss extends Entity{
 		dialogue[1] = "on and on and on and on and on and on and \non and on and on and on and on and on"; 
 	}
 	public void getImage() {
-		up1 = setupSprite("res\\npc\\bossSprite.png",0,0,16,16);
-		left1 = setupSprite("res\\npc\\bossSprite.png",0,1,16,16);
-		down1 = setupSprite("res\\npc\\bossSprite.png",1,1,16,16);
-		right1 = setupSprite("res\\npc\\bossSprite.png",1,0,16,16);
+		up1 = setupSprite("/npc/bossSprite.png",0,0,16,16);
+		left1 = setupSprite("/npc/bossSprite.png",0,1,16,16);
+		down1 = setupSprite("/npc/bossSprite.png",1,1,16,16);
+		right1 = setupSprite("/npc/bossSprite.png",1,0,16,16);
 	}
 	public void setAction() {
 		

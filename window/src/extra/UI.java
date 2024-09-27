@@ -6,6 +6,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import scoll2D.Panel2D;
 
@@ -18,6 +23,12 @@ public class UI {
 	public Font terminal,SansSerif40,SansSerif80;
 	public String currentDialogue = "";
 	public Button[] but = new Button[3];
+	private BufferedImage door;
+	private int dx = 0;
+	private int dy = 0;
+	private int[] sx = {0,0,0};
+	private int[] sy = {0,0,0};
+	private int butPri = -1;
 	
 	
 	public UI(Panel2D p) {
@@ -26,15 +37,43 @@ public class UI {
 		SansSerif40 = new Font("SansSerif",Font.PLAIN,40);
 		SansSerif80 = new Font("SansSerif",Font.PLAIN,80);
 		
-		but[0] = new Button(p,new Rectangle(200,250,100,40));
+		door = setup("/extra/door.png");
+		
+		this.setupButtonsTitle();
 	}
-	
+	public void setupButtonsTitle() {
+		but[0] = new Button(p,new Rectangle(200,250,100,40));
+		but[1] = new Button(p,new Rectangle(200,290,160,40));
+	}
+	public void setupButtonsComputer() {
+		but[0].modButton(new Rectangle(100,100,p.tileSize,p.tileSize));
+		but[1].modButton(new Rectangle(150,200,p.tileSize,p.tileSize));
+	}
 	public void draw(Graphics2D g2d) {
+		
+		
 		this.g2d = g2d;
-		g2d.setFont(SansSerif40);
-		if(showM) {
-			g2d.drawString(message, 0, 40);
+//System.out.println(" prev: " +p.prevGameState);
+//		
+//		System.out.println(" real: " +p.gameState);
+		if(p.prevGameState != p.gameState) {
+			
+			if(p.gameState == p.pausedState) {
+				
+			}
+			else if(p.gameState == p.dialogueState) {
+				
+			}
+			else if(p.gameState == p.titleState) {
+				
+				
+			}
+			else if(p.gameState == p.computerScreen) {
+				this.setupButtonsComputer();
+			}
 		}
+		p.prevGameState = p.gameState;
+		
 		if(p.gameState == p.pausedState) {
 			drawPauseScreen();
 		}
@@ -45,8 +84,27 @@ public class UI {
 			drawTitleScreen();
 			
 		}
+		if(p.gameState == p.computerScreen) {
+			drawComputerScreen();
+		}
 
-
+		
+//		System.out.println("post prev: " +p.prevGameState);
+		
+//		System.out.println("post real: " +p.gameState);
+	}
+	public BufferedImage setup(String filePath) {
+		UTool ut = new UTool();
+		BufferedImage img = null;
+		
+		try {
+			img = ImageIO.read(getClass().getResourceAsStream(filePath));
+			img = ut.scaleImage(img, p.tileSize, p.tileSize);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return img;
 	}
 	public void drawDialogue() {
 		int x = p.tileSize / 2;
@@ -79,6 +137,86 @@ public class UI {
 		showM = true;
 	}
 	public void drawPauseScreen() {
+		
+	}
+	public void drawComputerScreen() {
+		Color c = new Color(0,0,200);
+		
+		g2d.setColor(c);
+		g2d.fillRect(0, 0,p.width,p.height);
+//		
+//		int x = p.width/2 - (p.tileSize/2);
+//		int y = p.height/2 - (p.tileSize/2);
+		int x = 400;
+		int y = 400;
+		
+		g2d.drawImage(door,x,y,null);
+		
+		if(butPri != -1) {}
+		else {
+			butPri =0;
+		}
+//		System.out.println(p.pmp +", " + but[0].pe + ", " + but[0].entered()+ ", " + butPri);
+//		System.out.println(p.pmp);
+//		System.out.println(but[0].entered());
+		if(p.mthis && (but[0].entered() || but[0].pe) && butPri == 0) {
+			
+			dx = p.sx - sx[0];
+			dy = p.sy - sy[0];
+			
+			int newx = but[0].x += dx;
+			int newy = but[0].y += dy;
+			
+			but[0].modButton(new Rectangle(newx,newy,but[0].width,but[0].height));
+			
+			sx[0] = p.sx;
+			sy[0] = p.sy;
+		}
+		else {
+			butPri = -1;
+		}
+		sx[0] = p.sx;
+		sy[0] = p.sy;
+		but[0].pe = false;
+		if(but[0].entered()) but[0].pe = true;
+		
+		
+		if(butPri != -1) {}
+		else {
+			butPri =1;
+		}
+		if(p.mthis  && (but[1].pe || but[1].entered()) && butPri == 1) {
+
+			dx = p.sx - sx[1];
+			dy = p.sy - sy[1];
+			
+			int newx = but[1].x += dx;
+			int newy = but[1].y += dy;
+			
+			but[1].modButton(new Rectangle(newx,newy,but[1].width,but[1].height));
+			
+			sx[1] = p.sx;
+			sy[1] = p.sy;
+		}
+		else {
+			butPri = -1;
+		}
+		
+		sx[1] = p.sx;
+		sy[1] = p.sy;
+		but[1].pe = false;
+		
+		if(but[1].entered()) {
+			but[1].pe = true;
+		}
+		
+		
+		
+		g2d.setColor(Color.black);
+		g2d.fillRect(but[0].x, but[0].y, but[0].width, but[0].height);
+		g2d.setColor(Color.green);
+		g2d.fillRect(but[1].x, but[1].y, but[1].width, but[1].height);
+		
 		
 	}
 	public void drawTitleScreen() {
@@ -122,9 +260,18 @@ public class UI {
 		}
 		}
 		g2d.drawString(text, but[0].x+2, but[0].y + this.GetHeightOfString(text));
-//		p.add(b1);
 		
+		text = "computer screen";
 		
+		g2d.setFont(terminal);
+		g2d.setColor(Color.black);
+		if(but[1].entered()) {
+			g2d.drawRect(but[1].x,but[1].y,but[1].width,but[1].height);
+			if(but[1].clicked()) {
+				p.gameState = p.computerScreen;
+		}
+		}
+		g2d.drawString(text, but[1].x+2, but[1].y + this.GetHeightOfString(text));
 		
 	}
 	public int getXForCenteredText(String text) {

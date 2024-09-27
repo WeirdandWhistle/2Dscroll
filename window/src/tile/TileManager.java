@@ -1,10 +1,11 @@
 package tile;
 
+
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
 
@@ -26,13 +27,14 @@ public class TileManager {
 		tileNum = new int [p.maxWorldCol][p.maxWorldRow];
 		
 		getTileTex();
-		readMapFile("res\\maps\\testmap.txt");
+		readMapFile("/maps/testmap.txt");
 		
 	}
 	public void readMapFile(String mapPath) {
 		
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(mapPath));
+			InputStream is = getClass().getResourceAsStream(mapPath);
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
 			
 			int col = 0;
 			int row = 0;
@@ -76,7 +78,7 @@ public class TileManager {
 		
 		try {
 			tile[index] = new Tile();
-			tile[index].img = ImageIO.read(new File("res\\tiles\\" + path));
+			tile[index].img = ImageIO.read((getClass().getResourceAsStream("/tiles/" + path)));
 			tile[index].img = ut.scaleImage(tile[index].img, p.tileSize, p.tileSize);
 			tile[index].col = collison;
 		} catch (IOException e) {
